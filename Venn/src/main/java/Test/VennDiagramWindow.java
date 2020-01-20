@@ -12,11 +12,22 @@ import java.awt.Canvas;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.awt.SystemColor;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-public class VennDiagramWindow {
+/*
+ * This Window is only opened when the User Correctly enters their user details
+ */
+public class VennDiagramWindow extends JFrame{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JFrame frame;
 	private JTextField textField;
+	private JButton button_1;
 
 	/**
 	 * Launch the application.
@@ -52,13 +63,7 @@ public class VennDiagramWindow {
 		frame.setBounds(100, 100, 1328, 752);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-
-		// Circle Drawing
-		Canvas canvas = new Drawing();
-		canvas.setLocation(188, 142);
-		canvas.setBackground(Color.lightGray);
-		canvas.setSize(921, 563);
-		frame.getContentPane().add(canvas);
+		frame.setVisible(true);
 
 		// Input Text Field
 		textField = new JTextField();
@@ -77,6 +82,50 @@ public class VennDiagramWindow {
 		frame.getContentPane().add(btnNewButton);
 		btnNewButton.setBackground(Color.GRAY);
 		btnNewButton.setFont(new Font("Calibri", Font.BOLD, 30));
+
+		//Shows all Information In Circle 1
+		JButton button = new JButton("...\r\n");
+		button.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+				
+                    
+				} catch (Exception e1) {
+					// Handle Exception
+				}
+			}
+		});
+		button.setBounds(377, 599, 76, 28);
+		frame.getContentPane().add(button);
+		button.setForeground(SystemColor.controlText);
+		button.setFont(new Font("Calibri", Font.BOLD, 35));
+		button.setBackground(Color.LIGHT_GRAY);
+
+		// Shows all Information In Circle 2
+		button_1 = new JButton("...\r\n");
+		button_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+
+				} catch (Exception e1) {
+					// Handle Exception
+				}
+			}
+		});
+		button_1.setForeground(Color.BLACK);
+		button_1.setFont(new Font("Calibri", Font.BOLD, 35));
+		button_1.setBackground(Color.LIGHT_GRAY);
+		button_1.setBounds(804, 599, 76, 28);
+		frame.getContentPane().add(button_1);
+
+		// Circle Drawing
+		Canvas canvas = new Drawing();
+		canvas.setLocation(188, 142);
+		canvas.setBackground(Color.LIGHT_GRAY);
+		canvas.setSize(921, 563);
+		frame.getContentPane().add(canvas);
 
 		// Enter Button Action
 		btnNewButton.addActionListener(new ActionListener() {
