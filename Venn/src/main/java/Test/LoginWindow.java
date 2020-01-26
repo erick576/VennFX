@@ -2,6 +2,7 @@ package Test;
 
 import java.awt.EventQueue;
 
+
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
@@ -205,7 +206,7 @@ public class LoginWindow extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 
 				/*
-				 * New User Function:
+				 * Delete User Function:
 				 *
 				 * 
 				 */

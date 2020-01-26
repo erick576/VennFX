@@ -4,11 +4,11 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class LoginWindow extends Application {
-	private AnchorPane mainLayout;
+	private BorderPane mainLayout;
 	private Stage primaryStage;
 
 	@Override
@@ -23,7 +23,7 @@ public class LoginWindow extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("LoginWindowView.fxml"));
-			mainLayout = (AnchorPane) loader.load();
+			mainLayout = (BorderPane) loader.load();
 			Scene scene = new Scene(mainLayout);
 			primaryStage.setScene(scene);
 			primaryStage.show();
