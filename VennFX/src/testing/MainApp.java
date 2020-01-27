@@ -1,4 +1,4 @@
-package application;
+package testing;
 
 import java.io.IOException;
 
@@ -18,7 +18,7 @@ public class MainApp extends Application {
 	public void start(Stage primaryStage) {
 		
 		this.primaryStage = primaryStage;
-		this.primaryStage.setTitle("Main Application");
+		this.primaryStage.setTitle("Venn Diagram");
 		
 		initRootLayout();
 		
@@ -50,3 +50,5 @@ public class MainApp extends Application {
 		launch(args);
 	}
 }
+
+
