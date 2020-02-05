@@ -10,6 +10,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 
@@ -28,7 +30,10 @@ public class VennDiagramWindowController implements Initializable {
 	public Circle circle2;
 
 	@FXML
-	public Button entryButton;
+	public Button entryButton, title1Button, title2Button;
+
+	double orgSceneX, orgSceneY;
+	double orgTranslateX, orgTranslateY;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -39,11 +44,13 @@ public class VennDiagramWindowController implements Initializable {
 
 			// Testing For Invalid Statements
 			/*
-			 * Situations that will throw an invalid statement 1.Empty Text 2.Text Length
-			 * Over 100 3.Word Length Over 20 4.If a word is not All CAPS, NO CAPS, or ONLY
+			 * Situations that will throw an invalid statement 
+			 * 1.Empty Text 
+			 * 2.Text Length Over 100 
+			 * 3.Word Length Over 20 
+			 * 4.If a word is not All CAPS, NO CAPS, or ONLY
 			 * THE FIRST LETTER CAPS
 			 */
-
 			String testSpaces = textField.getText();
 			if (textField.getText().length() > 100
 					|| (testSpaces.replaceAll("", " ").length() == textField.getText().length()
@@ -97,7 +104,7 @@ public class VennDiagramWindowController implements Initializable {
 			}
 
 			// Input Valid Text File Into Drag and Drop TextBox
-
+			
 			TextField entry = new TextField();
 			entry.autosize();
 			entry.setText(textField.getText());
@@ -105,15 +112,183 @@ public class VennDiagramWindowController implements Initializable {
 			entry.setEditable(false);
 			entry.resizeRelocate(circle1.getCenterX(), circle1.getCenterY(), 1, 1);
 			entry.resize(50, 50);
-			entry.setMinWidth(50);
-			entry.setPrefWidth(50);
-			entry.setMaxWidth(400);
+			entry.setMinWidth(30);
+			entry.setPrefWidth(30);
+			entry.setMaxWidth(250);
 
 			stackPane.getChildren().add(entry);
+			textField.setText("");
+
+			// Drag and Drop Functionality
+			entry.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
+
+				orgSceneX = e.getSceneX();
+				orgSceneY = e.getSceneY();
+				orgTranslateX = entry.getTranslateX();
+				orgTranslateY = entry.getTranslateY();
+
+				entry.toFront();
+			});
+
+			entry.addEventHandler(MouseEvent.MOUSE_DRAGGED, e -> {
+
+				double offsetX = e.getSceneX() - orgSceneX;
+				double offsetY = e.getSceneY() - orgSceneY;
+				double newTranslateX = orgTranslateX + offsetX;
+				double newTranslateY = orgTranslateY + offsetY;
+				((TextField) (e.getSource())).setTranslateX(newTranslateX);
+				((TextField) (e.getSource())).setTranslateY(newTranslateY);
+
+			});
 
 		} catch (Exception e1) {
 			JOptionPane.showMessageDialog(null, "Please enter a valid entry");
 			textField.setText("");
+		}
+	}
+
+	public void title1Button(ActionEvent event) {
+		try {
+			
+			// Testing For Invalid Statements
+			/*
+			 * Situations that will throw an invalid statement 
+			 * 1.Empty Text 
+			 * 2.Text Length Over 100 
+			 * 3.Word Length Over 20 
+			 * 4.If a word is not All CAPS, NO CAPS, or ONLY
+			 * THE FIRST LETTER CAPS
+			 */
+			
+			String testSpaces = title1.getText();
+			if (title1.getText().length() > 100 || (testSpaces.replaceAll("", " ").length() == title1.getText().length()
+					&& title1.getText().length() > 20) || title1.getText().equals("")) {
+				throw new Exception();
+			}
+
+			int wordLength = 0;
+			int capCount = 0;
+			boolean isFirst = false;
+			ArrayList<Integer> lengths = new ArrayList<Integer>();
+			for (int i = 0; i < title1.getText().length(); i++) {
+				if (title1.getText().charAt(i) != ' ') {
+					wordLength++;
+				}
+
+				if (Character.isUpperCase(title1.getText().charAt(i)) && wordLength == 1) {
+					capCount++;
+					isFirst = true;
+					continue;
+				}
+
+				if (Character.isUpperCase(title1.getText().charAt(i))) {
+					capCount++;
+				}
+
+				if (title1.getText().charAt(i) == ' ') {
+					lengths.add(wordLength);
+					if (capCount != wordLength
+							&& ((capCount == 1 && isFirst == false) || (capCount != 1 && capCount != 0))) {
+						throw new Exception();
+					}
+					capCount = 0;
+					wordLength = 0;
+				}
+				if (i == title1.getText().length() - 1) {
+					lengths.add(wordLength);
+					if (capCount != wordLength
+							&& ((capCount == 1 && isFirst == false) || (capCount != 1 && capCount != 0))) {
+						throw new Exception();
+					}
+					capCount = 0;
+					wordLength = 0;
+				}
+			}
+			for (int i : lengths) {
+				if (i > 20) {
+					throw new Exception();
+				}
+			}
+			
+			
+			//Set Text
+			title1.setEditable(false);
+			
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Please enter a valid entry");
+			title1.setText("");
+		}
+	}
+
+	public void title2Button(ActionEvent event) {
+		try {
+			
+			// Testing For Invalid Statements
+			/*
+			 * Situations that will throw an invalid statement 
+			 * 1.Empty Text 
+			 * 2.Text Length Over 100 
+			 * 3.Word Length Over 20 
+			 * 4.If a word is not All CAPS, NO CAPS, or ONLY
+			 * THE FIRST LETTER CAPS
+			 */
+			
+			String testSpaces = title2.getText();
+			if (title2.getText().length() > 100 || (testSpaces.replaceAll("", " ").length() == title2.getText().length()
+					&& title2.getText().length() > 20) || title2.getText().equals("")) {
+				throw new Exception();
+			}
+
+			int wordLength = 0;
+			int capCount = 0;
+			boolean isFirst = false;
+			ArrayList<Integer> lengths = new ArrayList<Integer>();
+			for (int i = 0; i < title2.getText().length(); i++) {
+				if (title2.getText().charAt(i) != ' ') {
+					wordLength++;
+				}
+
+				if (Character.isUpperCase(title2.getText().charAt(i)) && wordLength == 1) {
+					capCount++;
+					isFirst = true;
+					continue;
+				}
+
+				if (Character.isUpperCase(title2.getText().charAt(i))) {
+					capCount++;
+				}
+
+				if (title2.getText().charAt(i) == ' ') {
+					lengths.add(wordLength);
+					if (capCount != wordLength
+							&& ((capCount == 1 && isFirst == false) || (capCount != 1 && capCount != 0))) {
+						throw new Exception();
+					}
+					capCount = 0;
+					wordLength = 0;
+				}
+				if (i == title2.getText().length() - 1) {
+					lengths.add(wordLength);
+					if (capCount != wordLength
+							&& ((capCount == 1 && isFirst == false) || (capCount != 1 && capCount != 0))) {
+						throw new Exception();
+					}
+					capCount = 0;
+					wordLength = 0;
+				}
+			}
+			for (int i : lengths) {
+				if (i > 20) {
+					throw new Exception();
+				}
+			}
+			
+			//Set Text
+			title2.setEditable(false);
+			
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Please enter a valid entry");
+			title2.setText("");
 		}
 	}
 
