@@ -2,6 +2,7 @@ package VennDiagramMain;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 
@@ -11,7 +12,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 
@@ -34,6 +34,9 @@ public class VennDiagramWindowController implements Initializable {
 
 	double orgSceneX, orgSceneY;
 	double orgTranslateX, orgTranslateY;
+	public static HashSet<String> entriesAB = new HashSet<>();
+	public static HashSet<String> entriesA = new HashSet<>();
+	public static HashSet<String> entriesB = new HashSet<>();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -102,7 +105,11 @@ public class VennDiagramWindowController implements Initializable {
 					throw new Exception();
 				}
 			}
-
+			
+			// Add Entry into the set
+			//When hotZones are inplemented and dragged into a cerain zone add the text to the set like below for example
+//			entriesA.add(textField.getText());
+			
 			// Input Valid Text File Into Drag and Drop TextBox
 			
 			TextField entry = new TextField();
