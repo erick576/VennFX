@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 
 public class VennDiagramWindowController implements Initializable {
@@ -32,6 +33,9 @@ public class VennDiagramWindowController implements Initializable {
 	@FXML
 	public Button entryButton, title1Button, title2Button;
 
+	@FXML
+	public VBox Abox, Bbox, ABbox;
+	
 	double orgSceneX, orgSceneY;
 	double orgTranslateX, orgTranslateY;
 	public static HashSet<String> entriesAB = new HashSet<>();

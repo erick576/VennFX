@@ -1,4 +1,4 @@
-package LoginWindowMain;
+package VennDiagramMain;
 
 import javafx.event.ActionEvent;
 import java.net.URL;
@@ -7,9 +7,14 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
+
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class LoginWindowController implements Initializable {
 
@@ -54,9 +59,17 @@ public class LoginWindowController implements Initializable {
 			if (result.next() == false) {
 				throw new Exception();
 			} else {
-				var alert = new Alert(Alert.AlertType.NONE);
-				alert.setTitle("Welcome");
+				JOptionPane.showMessageDialog(null, "Welcome");
 				// Open Venn Diagram Window
+
+				((Node) event.getSource()).getScene().getWindow().hide();
+				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("VennDiagramWindowView.fxml"));
+		        Parent part = (Parent) fxmlLoader.load();
+		        Stage stage = new Stage();
+		        Scene scene = new Scene(part);
+		        stage.setScene(scene);
+		        stage.show();
+		   
 			}
 
 		} catch (Exception e) {
@@ -100,6 +113,16 @@ public class LoginWindowController implements Initializable {
 			password.setText("");
 
 			// Open VennDiagramWindow Now
+			JOptionPane.showMessageDialog(null, "Welcome");
+			// Open Venn Diagram Window
+
+			((Node) event.getSource()).getScene().getWindow().hide();
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("VennDiagramWindowView.fxml"));
+	        Parent part = (Parent) fxmlLoader.load();
+	        Stage stage = new Stage();
+	        Scene scene = new Scene(part);
+	        stage.setScene(scene);
+	        stage.show();
 
 		} catch (Exception e1) {
 			JOptionPane.showMessageDialog(null, "Please enter a valid entry");
