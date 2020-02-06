@@ -19,7 +19,7 @@ import javafx.scene.shape.Circle;
 public class VennDiagramWindowController implements Initializable {
 
 	@FXML
-	public TextField textField, title1, title2;
+	public TextField textField, title1, title2, side;
 
 	@FXML
 	public StackPane stackPane;
@@ -35,7 +35,7 @@ public class VennDiagramWindowController implements Initializable {
 
 	@FXML
 	public VBox Abox, Bbox, ABbox;
-	
+
 	double orgSceneX, orgSceneY;
 	double orgTranslateX, orgTranslateY;
 	public static HashSet<String> entriesAB = new HashSet<>();
@@ -110,9 +110,18 @@ public class VennDiagramWindowController implements Initializable {
 				}
 			}
 			
+			// If the side textbox is invalid
+			if (!side.getText().contentEquals("") && !side.getText().contentEquals("a")
+					&& !side.getText().contentEquals("A") && !side.getText().contentEquals("B")
+					&& !side.getText().contentEquals("b") && !side.getText().contentEquals("ab")
+					&& !side.getText().contentEquals("AB")) {
+				throw new Exception();
+			}
+			
+			
 			// Add Entry into the set
 			//When hotZones are inplemented and dragged into a cerain zone add the text to the set like below for example
-//			entriesA.add(textField.getText());
+			//entriesA.add(textField.getText());
 			
 			// Input Valid Text File Into Drag and Drop TextBox
 			
@@ -125,7 +134,7 @@ public class VennDiagramWindowController implements Initializable {
 			entry.resize(50, 50);
 			entry.setMinWidth(30);
 			entry.setPrefWidth(30);
-			entry.setMaxWidth(250);
+			entry.setMaxWidth(200);
 
 			stackPane.getChildren().add(entry);
 			textField.setText("");
@@ -152,9 +161,40 @@ public class VennDiagramWindowController implements Initializable {
 
 			});
 
+			// Dragging into HotZone Functionallity
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+
+			
+			// If Side is already specified then there is no need to drag, the text box will automatically fall in the hotZone
+			if (!side.getText().equals("")) {
+				if (side.getText().contentEquals("A") || side.getText().contentEquals("a")) {
+					Abox.getChildren().add(entry);
+				}
+				else if (side.getText().contentEquals("B") || side.getText().contentEquals("b")) {
+					Bbox.getChildren().add(entry);
+				}
+				else if (side.getText().contentEquals("AB") || side.getText().contentEquals("ab")) {
+					entry.setMaxWidth(150);
+					ABbox.getChildren().add(entry);
+				}
+				side.setText("");
+			}
+
 		} catch (Exception e1) {
 			JOptionPane.showMessageDialog(null, "Please enter a valid entry");
 			textField.setText("");
+			side.setText("");
 		}
 	}
 

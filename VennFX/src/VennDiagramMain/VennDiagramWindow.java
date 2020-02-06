@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class VennDiagramWindow extends Application{
+public class VennDiagramWindow extends Application {
 
 	private AnchorPane mainLayout;
 	private Stage primaryStage;
@@ -16,11 +16,11 @@ public class VennDiagramWindow extends Application{
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		primaryStage.setTitle("Venn Diagram Window");
-		
+
 		VennDiagramWindowView();
 	}
 
-	private void VennDiagramWindowView(){
+	private void VennDiagramWindowView() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("VennDiagramWindowView.fxml"));
@@ -28,7 +28,7 @@ public class VennDiagramWindow extends Application{
 			Scene scene = new Scene(mainLayout);
 			primaryStage.setScene(scene);
 			primaryStage.show();
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -37,5 +37,5 @@ public class VennDiagramWindow extends Application{
 	public static void main(String[] args) {
 		launch(args);
 	}
-	
+
 }

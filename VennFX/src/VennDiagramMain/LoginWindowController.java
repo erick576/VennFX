@@ -64,12 +64,12 @@ public class LoginWindowController implements Initializable {
 
 				((Node) event.getSource()).getScene().getWindow().hide();
 				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("VennDiagramWindowView.fxml"));
-		        Parent part = (Parent) fxmlLoader.load();
-		        Stage stage = new Stage();
-		        Scene scene = new Scene(part);
-		        stage.setScene(scene);
-		        stage.show();
-		   
+				Parent part = (Parent) fxmlLoader.load();
+				Stage stage = new Stage();
+				Scene scene = new Scene(part);
+				stage.setScene(scene);
+				stage.show();
+
 			}
 
 		} catch (Exception e) {
@@ -118,11 +118,11 @@ public class LoginWindowController implements Initializable {
 
 			((Node) event.getSource()).getScene().getWindow().hide();
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("VennDiagramWindowView.fxml"));
-	        Parent part = (Parent) fxmlLoader.load();
-	        Stage stage = new Stage();
-	        Scene scene = new Scene(part);
-	        stage.setScene(scene);
-	        stage.show();
+			Parent part = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
+			Scene scene = new Scene(part);
+			stage.setScene(scene);
+			stage.show();
 
 		} catch (Exception e1) {
 			JOptionPane.showMessageDialog(null, "Please enter a valid entry");

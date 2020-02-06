@@ -18,7 +18,7 @@ public class LoginWindow extends Application {
 		showLoginWindowView();
 	}
 
-	private void showLoginWindowView(){
+	private void showLoginWindowView() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("LoginWindowView.fxml"));
@@ -26,11 +26,12 @@ public class LoginWindow extends Application {
 			Scene scene = new Scene(mainLayout);
 			primaryStage.setScene(scene);
 			primaryStage.show();
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
+
 	public static void main(String[] args) {
 		launch(args);
 	}
