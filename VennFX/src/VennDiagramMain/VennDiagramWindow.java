@@ -10,28 +10,24 @@ import javafx.stage.Stage;
 public class VennDiagramWindow extends Application {
 
 	private AnchorPane mainLayout;
-	private Stage primaryStage;
+	public static Stage primaryStage;
+	private FXMLLoader loader;
 
 	@Override
-	public void start(Stage primaryStage) {
-		this.primaryStage = primaryStage;
-		primaryStage.setTitle("Venn Diagram Window");
-
+	public void start(Stage primaryStage) throws IOException {
+		VennDiagramWindow.primaryStage = primaryStage;
 		VennDiagramWindowView();
+		Scene scene = new Scene(this.mainLayout);
+		VennDiagramWindow.primaryStage.setScene(scene);
+		VennDiagramWindow.primaryStage.show();
+		VennDiagramWindow.primaryStage.show();
 	}
 
-	private void VennDiagramWindowView() {
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("VennDiagramWindowView.fxml"));
-			mainLayout = (AnchorPane) loader.load();
-			Scene scene = new Scene(mainLayout);
-			primaryStage.setScene(scene);
-			primaryStage.show();
+	private void VennDiagramWindowView() throws IOException {
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		this.loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("VennDiagramWindowView.fxml"));
+		this.mainLayout = (AnchorPane) loader.load();
 	}
 
 	public static void main(String[] args) {
