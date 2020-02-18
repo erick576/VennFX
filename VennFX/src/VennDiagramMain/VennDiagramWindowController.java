@@ -1,9 +1,16 @@
 package VennDiagramMain;
 
+import java.io.FileOutputStream;
 import java.net.URL;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,11 +27,12 @@ import javafx.scene.layout.VBox;
 //import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
+
 public class VennDiagramWindowController implements Initializable {
 
-	@FXML 
+	@FXML
 	public ColorPicker color1, color2;
-	
+
 	@FXML
 	public TextField textField, title1, title2;
 
@@ -48,9 +56,10 @@ public class VennDiagramWindowController implements Initializable {
 
 	double orgSceneX, orgSceneY;
 	double orgTranslateX, orgTranslateY;
-	public static HashSet<String> entriesAB = new HashSet<>();
-	public static HashSet<String> entriesA = new HashSet<>();
-	public static HashSet<String> entriesB = new HashSet<>();
+	public static ArrayList<String> entriesAB = new ArrayList<>();
+	public static ArrayList<String> entriesA = new ArrayList<>();
+	public static ArrayList<String> entriesB = new ArrayList<>();
+	public static String[] Titles = new String[] {"Left Side", "Right Side", "Middle"};
 	ObservableList<String> sidesList = FXCollections.observableArrayList("Left Side", "Right Side", "Middle", "");
 
 	@Override
@@ -113,11 +122,14 @@ public class VennDiagramWindowController implements Initializable {
 			// automatically fall in the hotZone
 			if (sides.getValue().contentEquals("Left Side")) {
 				Abox.getChildren().add(entry);
+				entriesA.add(entry.getText());
 			} else if (sides.getValue().contentEquals("Right Side")) {
 				Bbox.getChildren().add(entry);
+				entriesB.add(entry.getText());
 			} else if (sides.getValue().contentEquals("Middle")) {
 				entry.setMaxWidth(150);
 				ABbox.getChildren().add(entry);
+				entriesAB.add(entry.getText());
 			}
 			sides.setValue("");
 
@@ -138,6 +150,7 @@ public class VennDiagramWindowController implements Initializable {
 			// Set Text
 			JOptionPane.showMessageDialog(null, "Title Is Now Locked");
 			title1.setEditable(false);
+			Titles[0] = title1.getText();
 
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Please enter a valid entry");
@@ -156,6 +169,7 @@ public class VennDiagramWindowController implements Initializable {
 			// Set Text
 			JOptionPane.showMessageDialog(null, "Title Is Now Locked");
 			title2.setEditable(false);
+			Titles[1] = title2.getText();
 
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Please enter a valid entry");
@@ -219,13 +233,45 @@ public class VennDiagramWindowController implements Initializable {
 //		}
 //	}
 
-	
-	
 	// Export CSV Function Here
 	public void exportButton(ActionEvent event) {
 		try {
 
+			if (entriesA.isEmpty() && entriesB.isEmpty() && entriesAB.isEmpty()) {
+				throw new Exception();
+			}
+			int max = Math.max(Math.max(entriesA.size(), entriesB.size()), entriesAB.size());
+			Workbook workbook = new XSSFWorkbook();
+			Sheet sheet = workbook.createSheet("Results");
+
+			Row headerRow = sheet.createRow(0);
+
+			for (int i = 0; i < 3; i++) {
+				Cell cell = headerRow.createCell(i);
+				cell.setCellValue(Titles[i]);
+			}
+
+			for (int i = 1; i <= max; i++) {
+				Row row = sheet.createRow(i);
+				if (i - 1 <= entriesA.size() - 1) {
+					row.createCell(0).setCellValue(entriesA.get(i - 1));
+				}
+				if (i - 1 <= entriesB.size() - 1) {
+					row.createCell(1).setCellValue(entriesB.get(i - 1));
+				}
+				if (i - 1 <= entriesAB.size() - 1) {
+					row.createCell(2).setCellValue(entriesAB.get(i - 1));
+				}
+			}
+
+			FileOutputStream fileOut = new FileOutputStream("Results.xlsx");
+			workbook.write(fileOut);
+			fileOut.close();
+			workbook.close();
+			JOptionPane.showMessageDialog(null, "Entries Saved!");
+
 		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "No Entries Stored");
 
 		}
 	}
