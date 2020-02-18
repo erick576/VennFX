@@ -17,7 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
+//import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 public class VennDiagramWindowController implements Initializable {
@@ -38,7 +38,7 @@ public class VennDiagramWindowController implements Initializable {
 	public Circle circle2;
 
 	@FXML
-	public Button entryButton, title1Button, title2Button, change1Button, change2Button;
+	public Button entryButton, title1Button, title2Button, change1Button, change2Button, exportButton;
 
 	@FXML
 	public VBox Abox, Bbox, ABbox;
@@ -172,7 +172,7 @@ public class VennDiagramWindowController implements Initializable {
 			title1.setEditable(true);
 			JOptionPane.showMessageDialog(null, "Title Is Now Unocked");
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Please enter a valid entry");
+			JOptionPane.showMessageDialog(null, "No Title Yet");
 			title1.setText("");
 		}
 	}
@@ -187,7 +187,7 @@ public class VennDiagramWindowController implements Initializable {
 			JOptionPane.showMessageDialog(null, "Title Is Now Unocked");
 			title2.setEditable(true);
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Please enter a valid entry");
+			JOptionPane.showMessageDialog(null, "No Title Yet");
 			title2.setText("");
 		}
 	}
@@ -197,19 +197,34 @@ public class VennDiagramWindowController implements Initializable {
 		sides.setItems(sidesList);
 	}
 
-	public void color1(ActionEvent event) {
-		try {
-			Color selectedColor = color1.getValue();
-			circle1.setFill(selectedColor);
-		} catch (Exception e) {
+//Color Function Diabled For Now (May not be a good idea)
 
-		}
-	}
+//	public void color1(ActionEvent event) {
+//		try {
+//			Color selectedColor = color1.getValue();
+//			circle1.setFill(selectedColor);
+//
+//		} catch (Exception e) {
+//
+//		}
+//	}
+//
+//	public void color2(ActionEvent event) {
+//		try {
+//			Color selectedColor = color2.getValue();
+//			circle2.setFill(selectedColor);
+//
+//		} catch (Exception e) {
+//
+//		}
+//	}
 
-	public void color2(ActionEvent event) {
+	
+	
+	// Export CSV Function Here
+	public void exportButton(ActionEvent event) {
 		try {
-			Color selectedColor = color2.getValue();
-			circle2.setFill(selectedColor);
+
 		} catch (Exception e) {
 
 		}

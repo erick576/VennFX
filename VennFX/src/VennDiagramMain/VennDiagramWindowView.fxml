@@ -4,6 +4,7 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
@@ -12,11 +13,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="795.0" prefWidth="1142.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="VennDiagramMain.VennDiagramWindowController">
+<AnchorPane prefHeight="808.0" prefWidth="1536.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="VennDiagramMain.VennDiagramWindowController">
    <children>
-      <Pane prefHeight="712.0" prefWidth="1142.0">
+      <Pane layoutX="182.0" prefHeight="795.0" prefWidth="1286.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="182.0" AnchorPane.rightAnchor="-182.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button fx:id="entryButton" layoutX="829.0" layoutY="55.0" mnemonicParsing="false" onAction="#entryButton" text="Enter">
+            <Button fx:id="entryButton" layoutX="830.0" layoutY="56.0" mnemonicParsing="false" onAction="#entryButton" text="Enter">
                <font>
                   <Font name="Arial Bold" size="24.0" />
                </font>
@@ -37,7 +38,7 @@
             <VBox fx:id="Abox" layoutX="262.0" layoutY="308.0" prefHeight="397.0" prefWidth="195.0" />
             <VBox fx:id="Bbox" layoutX="695.0" layoutY="315.0" prefHeight="397.0" prefWidth="185.0" />
             <VBox fx:id="ABbox" layoutX="533.0" layoutY="384.0" prefHeight="262.0" prefWidth="83.0" />
-            <ChoiceBox fx:id="sides" layoutX="922.0" layoutY="55.0" prefHeight="43.0" prefWidth="107.0" />
+            <ChoiceBox fx:id="sides" layoutX="923.0" layoutY="56.0" prefHeight="43.0" prefWidth="107.0" />
             <Button fx:id="change1Button" layoutX="365.0" layoutY="151.0" mnemonicParsing="false" onAction="#change1Button" prefHeight="37.0" prefWidth="119.0" text="Change Title">
                <font>
                   <Font name="System Bold" size="14.0" />
@@ -48,8 +49,8 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <ColorPicker fx:id="color1" layoutX="14.0" layoutY="287.0" onAction="#color1" />
-            <ColorPicker fx:id="color2" layoutX="1008.0" layoutY="274.0" onAction="#color2" />
+            <ColorPicker layoutX="14.0" layoutY="287.0" />
+            <ColorPicker layoutX="1008.0" layoutY="274.0" />
             <Text layoutX="14.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" text="    Circle 1 Color" wrappingWidth="124.72890624999991">
                <font>
                   <Font name="System Bold" size="14.0" />
@@ -60,12 +61,27 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Text>
+            <Button fx:id="exportButton" layoutX="1133.0" layoutY="712.0" mnemonicParsing="false" onAction="#exportButton" prefHeight="43.0" prefWidth="119.0" text="Export">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
          </children>
+         <effect>
+            <Glow />
+         </effect>
       </Pane>
-      <StackPane fx:id="stackPane" layoutX="120.0" layoutY="205.0" prefHeight="579.0" prefWidth="906.0">
+      <StackPane fx:id="stackPane" layoutX="318.0" layoutY="205.0" prefHeight="579.0" prefWidth="899.0">
          <children>
-            <Circle fx:id="circle1" fill="#1f93ff00" radius="273.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" StackPane.alignment="BOTTOM_LEFT" />
-            <Circle fx:id="circle2" fill="#1f93ff00" radius="273.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" StackPane.alignment="BOTTOM_RIGHT" />
+            <Circle fx:id="circle1" fill="#1f93ff00" radius="273.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" StackPane.alignment="BOTTOM_LEFT">
+               <effect>
+                  <Glow />
+               </effect>
+            </Circle>
+            <Circle fx:id="circle2" depthTest="ENABLE" fill="#3d77aa00" radius="273.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" StackPane.alignment="BOTTOM_RIGHT">
+               <effect>
+                  <Glow />
+               </effect></Circle>
          </children>
       </StackPane>
    </children>
