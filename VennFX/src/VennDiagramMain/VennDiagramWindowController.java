@@ -12,21 +12,19 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Point2D;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-//import javafx.scene.paint.Color;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-
 
 public class VennDiagramWindowController implements Initializable {
 
@@ -46,25 +44,18 @@ public class VennDiagramWindowController implements Initializable {
 	public Circle circle2;
 
 	@FXML
-	public Button entryButton, title1Button, title2Button, change1Button, change2Button, exportButton;
-
-	@FXML
-	public VBox Abox, Bbox, ABbox;
-
-	@FXML
-	public ChoiceBox<String> sides;
+	public Button entryButton, title1Button, title2Button, change1Button, change2Button, exportButton, clearButton;
 
 	double orgSceneX, orgSceneY;
 	double orgTranslateX, orgTranslateY;
 	public static ArrayList<String> entriesAB = new ArrayList<>();
 	public static ArrayList<String> entriesA = new ArrayList<>();
 	public static ArrayList<String> entriesB = new ArrayList<>();
-	public static String[] Titles = new String[] {"Left Side", "Right Side", "Middle"};
-	ObservableList<String> sidesList = FXCollections.observableArrayList("Left Side", "Right Side", "Middle", "");
+	public static ArrayList<TextField> entries = new ArrayList<>();
+	public static String[] Titles = new String[] { "Left Side", "Right Side", "Middle" };
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		loadData();
 	}
 
 	public void entryButton(ActionEvent event) {
@@ -80,7 +71,10 @@ public class VennDiagramWindowController implements Initializable {
 			// entriesA.add(textField.getText());
 
 			// Input Valid Text File Into Drag and Drop TextBox
+			// Enter entry into general ArrayList called "entries" for when export function
+			// is needed
 			TextField entry = new TextField();
+			entries.add(entry);
 			entry.autosize();
 			entry.setText(textField.getText());
 			entry.setVisible(true);
@@ -89,7 +83,7 @@ public class VennDiagramWindowController implements Initializable {
 			entry.resize(50, 50);
 			entry.setMinWidth(30);
 			entry.setPrefWidth(30);
-			entry.setMaxWidth(200);
+			entry.setMaxWidth(150);
 
 			stackPane.getChildren().add(entry);
 			textField.setText("");
@@ -116,22 +110,35 @@ public class VennDiagramWindowController implements Initializable {
 
 			});
 
-			// Dragging into HotZone Functionallity
+			// Dragging into HotZone Functionallity (Everything is implemented But Without Hotzones)
+			// Will warn user if entry is outside of venn diagram (Entry positions will be calculated at the end when the user wants to export the entries)
 
-			// If Side is already specified then there is no need to drag, the text box will
-			// automatically fall in the hotZone
-			if (sides.getValue().contentEquals("Left Side")) {
-				Abox.getChildren().add(entry);
-				entriesA.add(entry.getText());
-			} else if (sides.getValue().contentEquals("Right Side")) {
-				Bbox.getChildren().add(entry);
-				entriesB.add(entry.getText());
-			} else if (sides.getValue().contentEquals("Middle")) {
-				entry.setMaxWidth(150);
-				ABbox.getChildren().add(entry);
-				entriesAB.add(entry.getText());
-			}
-			sides.setValue("");
+			entry.addEventHandler(MouseEvent.MOUSE_RELEASED, e -> {
+
+				Point2D leftCenter = circle1.localToParent(circle1.getCenterX(), circle1.getCenterY());
+				Point2D rightCenter = circle2.localToParent(circle2.getCenterX(), circle2.getCenterY());
+
+				double leftRadius = circle1.getRadius();
+				double rightRadius = circle2.getRadius();
+
+				Point2D textFieldLocation = entry.localToParent(entry.getScene().getX(), entry.getScene().getY());
+
+				double distanceToLeft = textFieldLocation.distance(leftCenter);
+				double distanceToRight = textFieldLocation.distance(rightCenter);
+
+				if ((distanceToLeft <= leftRadius && distanceToRight <= rightRadius) || (distanceToLeft <= leftRadius)
+						|| (distanceToRight <= rightRadius)) {
+				} else {
+
+					Alert alert = new Alert(AlertType.WARNING);
+					alert.setTitle("Warning Dialog");
+					alert.setHeaderText("TextField Out of Bounds");
+					alert.setContentText(
+							"If you dont place the textField inside the bounds, I wont be able to add it to the CSV File.");
+					alert.showAndWait();
+				}
+
+			});
 
 		} catch (Exception e1) {
 			JOptionPane.showMessageDialog(null, "Please enter a valid entry");
@@ -206,40 +213,62 @@ public class VennDiagramWindowController implements Initializable {
 		}
 	}
 
-	private void loadData() {
-		sides.setValue("");
-		sides.setItems(sidesList);
-	}
-
 //Color Function Diabled For Now (May not be a good idea)
 
-//	public void color1(ActionEvent event) {
-//		try {
-//			Color selectedColor = color1.getValue();
-//			circle1.setFill(selectedColor);
-//
-//		} catch (Exception e) {
-//
-//		}
-//	}
-//
-//	public void color2(ActionEvent event) {
-//		try {
-//			Color selectedColor = color2.getValue();
-//			circle2.setFill(selectedColor);
-//
-//		} catch (Exception e) {
-//
-//		}
-//	}
+	public void color1(ActionEvent event) {
+		try {
+			Color selectedColor = color1.getValue();
+			circle1.setFill(selectedColor);
+		} catch (Exception e) {
+
+		}
+	}
+
+	public void color2(ActionEvent event) {
+		try {
+			Color selectedColor = color2.getValue();
+			circle2.setFill(selectedColor);
+
+		} catch (Exception e) {
+
+		}
+	}
 
 	// Export CSV Function Here
 	public void exportButton(ActionEvent event) {
 		try {
 
+			// Putting the entires in the app into their respective sides based on their
+			// position
+			for (TextField entry : entries) {
+				Point2D leftCenter = circle1.localToParent(circle1.getCenterX(), circle1.getCenterY());
+				Point2D rightCenter = circle2.localToParent(circle2.getCenterX(), circle2.getCenterY());
+
+				double leftRadius = circle1.getRadius();
+				double rightRadius = circle2.getRadius();
+
+				Point2D textFieldLocation = entry.localToParent(entry.getScene().getX(), entry.getScene().getY());
+
+				double distanceToLeft = textFieldLocation.distance(leftCenter);
+				double distanceToRight = textFieldLocation.distance(rightCenter);
+
+				if (distanceToLeft <= leftRadius && distanceToRight <= rightRadius) {
+					entriesAB.add(entry.getText());
+				}
+
+				else if (distanceToLeft <= leftRadius) {
+					entriesA.add(entry.getText());
+
+				} else if (distanceToRight <= rightRadius) {
+					entriesB.add(entry.getText());
+
+				}
+			}
 			if (entriesA.isEmpty() && entriesB.isEmpty() && entriesAB.isEmpty()) {
 				throw new Exception();
 			}
+
+			// Saving it onto the excel sheet
 			int max = Math.max(Math.max(entriesA.size(), entriesB.size()), entriesAB.size());
 			Workbook workbook = new XSSFWorkbook();
 			Sheet sheet = workbook.createSheet("Results");
@@ -276,4 +305,22 @@ public class VennDiagramWindowController implements Initializable {
 		}
 	}
 
+	// Clear Button Function
+	public void clearButton(ActionEvent event) {
+		try {
+			if (entries.size() == 0 && title1.getText().contentEquals("") && title2.getText().contentEquals("")) {
+				throw new Exception();
+			}
+			for (TextField entry : entries) {
+				entry.setVisible(false);
+			}
+			entries.clear();
+			title1.setText("");
+			title1.setEditable(true);
+			title2.setText("");
+			title2.setEditable(true);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Is Already Empty");
+		}
+	}
 }
