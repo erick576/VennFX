@@ -61,7 +61,7 @@ public class VennDiagramWindowController implements Initializable {
 	public void entryButton(ActionEvent event) {
 		try {
 
-			if (textField.getText().contentEquals("")) {
+			if (textField.getText().trim().contentEquals("")) {
 				throw new Exception();
 			}
 
@@ -150,7 +150,7 @@ public class VennDiagramWindowController implements Initializable {
 	public void title1Button(ActionEvent event) {
 		try {
 
-			if (title1.getText().contentEquals("")) {
+			if (title1.getText().trim().contentEquals("")) {
 				throw new Exception();
 			}
 
@@ -169,7 +169,7 @@ public class VennDiagramWindowController implements Initializable {
 	public void title2Button(ActionEvent event) {
 		try {
 
-			if (title2.getText().contentEquals("")) {
+			if (title2.getText().trim().contentEquals("")) {
 				throw new Exception();
 			}
 
@@ -213,7 +213,6 @@ public class VennDiagramWindowController implements Initializable {
 		}
 	}
 
-//Color Function Diabled For Now (May not be a good idea)
 
 	public void color1(ActionEvent event) {
 		try {
@@ -319,6 +318,8 @@ public class VennDiagramWindowController implements Initializable {
 			title1.setEditable(true);
 			title2.setText("");
 			title2.setEditable(true);
+			circle1.setFill(Color.TRANSPARENT);
+			circle2.setFill(Color.TRANSPARENT);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Is Already Empty");
 		}

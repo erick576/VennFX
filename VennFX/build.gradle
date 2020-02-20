@@ -34,8 +34,3 @@ repositories {
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
 }
-
-compile (group: "org.apache.poi", name: "poi", version: "3.13"){ transitive = false}
-compile (group: "org.apache.poi", name: "poi-ooxml", version: "3.13"){ transitive = false}
-compile (group: 'org.apache.poi', name: 'poi-ooxml-schemas', version: '3.13'){ transitive = false}
-compile (group: 'org.apache.xmlbeans', name: 'xmlbeans', version: '2.6.0'){ transitive = false}
