@@ -8,7 +8,7 @@ Current Release: Midterm
 2. Run this on command line of choice...
 ``` java --module-path ../assets/javafx-sdk-13.0.2/lib --add-modules javafx.controls,javafx.fxml -jar RunnableFile.jar ```
 *Please ensure you are using JDK11+
-
+*If using MacOS, install openjfx with homebrew ``` brew install openjfx ```
 ## Important Folders
 
 Documentation: Contains all Documents
