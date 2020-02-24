@@ -5,6 +5,7 @@ Current Release: Midterm
 
 ## Run Instructions
 ``` java --module-path "../assets/javafx-sdk-13.0.2/lib" --add-modules javafx.controls,javafx.fxml -jar RunnableFile.jar ```
+*Please ensure you are using JDK11+
 
 ## Important Folders
 
