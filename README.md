@@ -6,7 +6,7 @@ Current Release: Midterm
 ## Run Instructions
 1. Navigate to VennFX subdirectory
 2. Run this on command line of choice...
-``` java --module-path "../assets/javafx-sdk-13.0.2/lib" --add-modules javafx.controls.javafx.fxml -jar RunnableFile.jar ```
+``` java --module-path ../assets/javafx-sdk-13.0.2/lib --add-modules javafx.controls,javafx.fxml -jar RunnableFile.jar ```
 *Please ensure you are using JDK11+
 
 ## Important Folders
