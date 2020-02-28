@@ -13,13 +13,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class LoginWindowController implements Initializable {
-
+	
 	public TextField username;
 	public TextField password;
+	public Button loginButton, newUserButton, deleteUserButton;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -59,9 +61,12 @@ public class LoginWindowController implements Initializable {
 			if (result.next() == false) {
 				throw new Exception();
 			} else {
+				
 				JOptionPane.showMessageDialog(null, "Welcome");
 				// Open Venn Diagram Window
 
+				username.setText("...");
+				password.setText("...");
 				((Node) event.getSource()).getScene().getWindow().hide();
 				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("VennDiagramWindowView.fxml"));
 				Parent part = (Parent) fxmlLoader.load();
@@ -109,10 +114,9 @@ public class LoginWindowController implements Initializable {
 			java.sql.Statement statement = connection.createStatement();
 			statement.executeUpdate(sql);
 			JOptionPane.showMessageDialog(null, "New User: " + username.getText() + " has been created");
-			username.setText("");
-			password.setText("");
-
 			// Open VennDiagramWindow Now
+			username.setText("...");
+			password.setText("...");
 			JOptionPane.showMessageDialog(null, "Welcome");
 			// Open Venn Diagram Window
 
