@@ -37,7 +37,6 @@ public class LoginWindowTester extends ApplicationTest {
 	}
 
 	/* This operation comes from ApplicationTest and loads the GUI to test. */
-	@Override
 	public void start(Stage primaryStage) throws IOException {
 		Parent loginWindow = FXMLLoader.load(getClass().getResource("LoginWindowView.fxml"));
 		primaryStage.setScene(new Scene(loginWindow));
