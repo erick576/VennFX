@@ -92,6 +92,6 @@ public class LoginWindowTester extends ApplicationTest {
 
 	@Test
 	public void LoginButtonTest() throws InterruptedException {
-		fail();
+		fail("");
 	}
 }
