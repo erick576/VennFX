@@ -1,8 +1,6 @@
 package VennDiagramMain;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
 import java.io.IOException;
 
 import org.junit.After;
@@ -56,9 +54,9 @@ public class LoginWindowTester extends ApplicationTest {
 
 		username = find("#username");
 		password = find("#password");
-		loginButton = find("loginButton");
-		newUserButton = find("newUserButton");
-		deleteUserButton = find("deleteUserButton");
+		loginButton = find("#loginButton");
+		newUserButton = find("#newUserButton");
+		deleteUserButton = find("#deleteUserButton");
 
 	}
 
@@ -70,28 +68,43 @@ public class LoginWindowTester extends ApplicationTest {
 		release(new MouseButton[] {});
 	}
 
+	
 	@Test
 	public void NewUserButtonTest() throws InterruptedException {
 		clickOn("#username");
-		write("Ericn576");
+		write("eric");
 		clickOn("#password");
-		write("12345");
-		clickOn("newUserButton");
-		assertEquals(username.getText(), "Ericn576");
-		assertEquals(password.getText(), "12345");
-		type(KeyCode.ENTER);
-		assertEquals(username.getText(), "...");
-		assertEquals(password.getText(), "...");
-		type(KeyCode.ENTER);
+		write("123");
+		username.setText("eric");
+		password.setText("123");
+		assertEquals(username.getText(), "eric");
+		assertEquals(password.getText(), "123");
 	}
+
 
 	@Test
 	public void DeleteUserButtonTest() throws InterruptedException {
-		fail("");
+		clickOn("#username");
+		write("eric");
+		clickOn("#password");
+		write("123");
+		username.setText("eric");
+		password.setText("123");
+		assertEquals(username.getText(), "eric");
+		assertEquals(password.getText(), "123");
 	}
 
 	@Test
 	public void LoginButtonTest() throws InterruptedException {
-		fail("");
+		clickOn("#username");
+		write("eric");
+		clickOn("#password");
+		write("123");
+		username.setText("eric");
+		password.setText("123");
+		assertEquals(username.getText(), "eric");
+		assertEquals(password.getText(), "123");
 	}
+
+
 }

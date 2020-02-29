@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -19,8 +20,10 @@ import javafx.stage.Stage;
 
 public class LoginWindowController implements Initializable {
 	
-	public TextField username;
-	public TextField password;
+	@FXML
+	public TextField username, password;
+	
+	@FXML
 	public Button loginButton, newUserButton, deleteUserButton;
 
 	@Override
@@ -115,9 +118,9 @@ public class LoginWindowController implements Initializable {
 			statement.executeUpdate(sql);
 			JOptionPane.showMessageDialog(null, "New User: " + username.getText() + " has been created");
 			// Open VennDiagramWindow Now
+			JOptionPane.showMessageDialog(null, "Welcome");
 			username.setText("...");
 			password.setText("...");
-			JOptionPane.showMessageDialog(null, "Welcome");
 			// Open Venn Diagram Window
 
 			((Node) event.getSource()).getScene().getWindow().hide();

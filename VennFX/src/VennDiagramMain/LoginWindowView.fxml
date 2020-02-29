@@ -29,17 +29,17 @@
                </font>
             </Text>
             <PasswordField fx:id="password" layoutX="233.0" layoutY="269.0" prefHeight="42.0" prefWidth="315.0" />
-            <Button layoutX="81.0" layoutY="361.0" mnemonicParsing="false" onAction="#loginButton" prefHeight="60.0" prefWidth="128.0" text="Login">
+            <Button fx:id="loginButton" layoutX="81.0" layoutY="361.0" mnemonicParsing="false" onAction="#loginButton" prefHeight="60.0" prefWidth="128.0" text="Login">
                <font>
                   <Font name="Arial Bold" size="15.0" />
                </font>
             </Button>
-            <Button layoutX="314.0" layoutY="361.0" mnemonicParsing="false" onAction="#newUserButton" prefHeight="60.0" prefWidth="128.0" text="New User?">
+            <Button fx:id="newUserButton" layoutX="314.0" layoutY="361.0" mnemonicParsing="false" onAction="#newUserButton" prefHeight="60.0" prefWidth="128.0" text="New User?">
                <font>
                   <Font name="Arial Bold" size="15.0" />
                </font>
             </Button>
-            <Button layoutX="531.0" layoutY="361.0" mnemonicParsing="false" onAction="#deleteUserButton" prefHeight="60.0" prefWidth="128.0" text="Delete User?">
+            <Button fx:id="deleteUserButton" layoutX="531.0" layoutY="361.0" mnemonicParsing="false" onAction="#deleteUserButton" prefHeight="60.0" prefWidth="128.0" text="Delete User?">
                <font>
                   <Font name="Arial Bold" size="15.0" />
                </font>
