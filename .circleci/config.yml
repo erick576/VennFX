@@ -31,5 +31,5 @@ jobs:
 
 
       # run tests! and build
-      - run: cd VennFX && ./gradlew build
+      - run: cd VennFX && ./gradlew build --stacktrace
       - run: cd VennFX && ./gradlew test --stacktrace
