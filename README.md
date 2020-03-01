@@ -4,11 +4,11 @@ EECS2311 Software Development Project (Winter 2020)
 Current Release: Midterm
 
 ## Run Instructions
-1. Navigate to VennFX subdirectory
-2. Run this on command line of choice...
-``` java --module-path ../assets/javafx-sdk-13.0.2/lib --add-modules javafx.controls,javafx.fxml -jar RunnableFile.jar ```
-*Please ensure you are using JDK11+
-*If using MacOS, please specify mac specific javafx sdk path e.g. ``` java --module-path path/to/your/javafx-sdk-13.0.2/lib --add-modules javafx.controls,javafx.fxml -jar RunnableFile.jar ```
+### Build from Source
+1. ```gradlew build```
+2. Navigate to *build/libs/*
+3. Run *VennFX-1.0.jar* by double-clicking on it or running ```java -jar VennFX-1.0.jar```
+
 ## Important Folders
 
 Documentation: Contains all Documents
