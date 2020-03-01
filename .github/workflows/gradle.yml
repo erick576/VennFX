@@ -17,3 +17,5 @@ jobs:
       run: cd VennFX && chmod +x gradlew
     - name: Build with Gradle
       run: cd VennFX && ./gradlew jar
+    - name: JUnit Tests
+      run: cd VennFX && ./gradlew test
