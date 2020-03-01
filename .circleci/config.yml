@@ -39,6 +39,6 @@ jobs:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle" }}
 
-      # run tests!
+      # run tests! and build
       - run: cd VennFX && ./gradlew build
       - run: cd VennFX && ./gradlew test
