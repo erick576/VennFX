@@ -14,6 +14,7 @@ apply plugin: 'application'
 apply plugin: 'java'
 apply plugin: 'eclipse'
 
+
 mainClassName = 'VennDiagramMain.VennDiagramWindowMain'
 
 
@@ -64,6 +65,7 @@ repositories {
        dirs "$rootProject.projectDir/libs"
    }
 }
+
 
 
 
