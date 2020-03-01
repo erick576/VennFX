@@ -25,20 +25,11 @@ jobs:
       - checkout
       - run: cd VennFX && chmod +x gradlew
 
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "build.gradle" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
 
       - run: cd VennFX && ./gradlew dependencies
 
-      - save_cache:
-          paths:
-            - ~/.gradle
-          key: v1-dependencies-{{ checksum "build.gradle" }}
+
 
       # run tests! and build
       - run: cd VennFX && ./gradlew build
-      - run: cd VennFX && ./gradlew test
+      - run: cd VennFX && ./gradlew test --stacktrace
