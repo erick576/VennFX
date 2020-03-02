@@ -52,7 +52,7 @@ jobs:
             NOW="$(date)" 
             ZIP_FILE_NAME=VennFX
             TAG=Release-$(date '+%Y-%m-%d-%H-%M-%S')
-            cd CounterCI
+            cd VennFX
             gradle jar
             cd ./build/libs/
             zip ${ZIP_FILE_NAME}.zip VennFX.jar 
