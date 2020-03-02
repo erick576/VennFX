@@ -60,7 +60,7 @@ dependencies {
 }
 
 test {
-    jvmArgs "-Dheadless=${project.hasProperty('headless') ? project.headless : false}"
+    jvmArgs "-Dheadless=${project.hasProperty('headless') ? project.headless : true}"
 }
 
 // In this section you declare where to find the dependencies of your project
