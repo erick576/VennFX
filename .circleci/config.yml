@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/jdk8:0.1.1
+      - image: danielmapar/gradle_and_node:2.0
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -45,6 +45,14 @@ jobs:
       - run: apt-get -y install libswt-gtk-3-java xvfb libgtk2.0-bin libXtst6 libxslt1.1
       # run tests!
       - run: cd VennFX && ./gradlew clean test -i --stacktrace
+      - run:
+        name: "Install github-release and Go"
+        command: |
+            wget https://dl.google.com/go/go1.13.linux-amd64.tar.gz
+            sudo tar -C /usr/local -xzf go1.13.linux-amd64.tar.gz
+            export PATH=$PATH:/usr/local/go/bin
+            source ~/.profile
+            go get github.com/aktau/github-release
       - run: 
           name: "Build and Publish Release on GitHub"
           command: |
