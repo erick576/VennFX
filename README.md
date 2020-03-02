@@ -1,7 +1,8 @@
 # SoftwareDevelopmentProject
 EECS2311 Software Development Project (Winter 2020)
 
-Current Release: Midterm
+![Build Status](https://img.shields.io/circleci/build/github/EECS2311-Team8/SoftwareDevelopmentProject/master?style=flat-square)
+
 
 ## Run Instructions
 ### Build from Source
