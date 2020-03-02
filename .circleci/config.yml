@@ -31,5 +31,4 @@ jobs:
       - run: cd VennFX && chmod +x gradlew      
       - run: cd VennFX && ./gradlew dependencies
       # run tests!
-      - run: cd VennFX && ./gradlew clean test -i --stacktrace
-      - run: cat VennFX/build/reports/tests/test/index.html
+      - run: cd VennFX && ./gradlew clean test -i --stacktrace && cat VennFX/build/reports/tests/test/index.html
