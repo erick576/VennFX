@@ -48,7 +48,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
     // Use JUnit test framework
 	testCompile "org.testfx:openjfx-monocle:8u76-b04"
-	testRuntime  "org.testfx:openjfx-monocle:1.8.0_20"
+	//testRuntime  "org.testfx:openjfx-monocle:1.8.0_20"
 
 
 
