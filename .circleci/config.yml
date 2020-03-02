@@ -50,7 +50,7 @@ jobs:
           name: "Build and Publish Release on GitHub"
           command: |
             NOW="$(date)" 
-            ZIP_FILE_NAME=CounterCI
+            ZIP_FILE_NAME=VennFX
             TAG=Release-$(date '+%Y-%m-%d-%H-%M-%S')
             cd CounterCI
             gradle jar
