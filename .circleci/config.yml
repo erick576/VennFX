@@ -26,7 +26,7 @@ jobs:
     steps:
       - checkout
       - run: apt-get update
-      - run: apt-get -y install xvfb libgtk2.0-bin libXtst6 libxslt1.1
+      - run: apt-get -y install libswt-gtk-3-java xvfb libgtk2.0-bin libXtst6 libxslt1.1
       - run: cd VennFX && chmod +x gradlew      
       - run: cd VennFX && ./gradlew dependencies
       # run tests! and build
