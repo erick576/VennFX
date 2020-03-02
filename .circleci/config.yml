@@ -53,7 +53,7 @@ jobs:
             ZIP_FILE_NAME=VennFX
             TAG=Release-$(date '+%Y-%m-%d-%H-%M-%S')
             cd VennFX
-            gradle jar
+            ./gradlew jar
             cd ./build/libs/
             zip ${ZIP_FILE_NAME}.zip VennFX.jar 
             github-release upload --token ${GITHUB_TOKEN} --owner ${PROJECT_USERNAME} --repo ${PROJECT_REPONAME} --tag ${TAG} --name ${TAG} --body "Release date: ${NOW}" ${ZIP_FILE_NAME}.zip
