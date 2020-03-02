@@ -21,6 +21,8 @@ jobs:
       GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
       JVM_OPTS: -Xmx3200m
       TERM: xterm
+      _JAVA_OPTIONS: "-Dtestfx.robot=glass -Dheadless.geometry=800x600-32 -Dglass.platform=Monocle -Dmonocle.platform=Headless -Dprism.order=sw -Djava.awt.headless=true -Dtestfx.headless=true -Dprism.verbose=true -Dprism.order=sw"
+
 
     steps:
       - checkout
@@ -40,7 +42,7 @@ jobs:
           paths:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "VennFX/build.gradle" }}
-
+      - run: apt-get -y install libswt-gtk-3-java xvfb libgtk2.0-bin libXtst6 libxslt1.1
       # run tests!
       - run: cd VennFX && ./gradlew clean test -i --stacktrace
       - run: 
