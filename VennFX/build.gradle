@@ -47,7 +47,12 @@ dependencies {
 	implementation 'com.fasterxml:aalto-xml:1.0.0'
     compile fileTree(dir: 'libs', include: '*.jar')
     // Use JUnit test framework
-	testCompile "org.testfx:openjfx-monocle:8u76-b04"
+
+	// https://mvnrepository.com/artifact/org.testfx/openjfx-monocle
+	testCompile group: 'org.testfx', name: 'openjfx-monocle', version: '8u20-b26'
+
+    
+	//testCompile "org.testfx:openjfx-monocle:8u76-b04"
 	//testRuntime  "org.testfx:openjfx-monocle:1.8.0_20"
 
 
