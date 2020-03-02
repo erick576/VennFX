@@ -61,7 +61,6 @@ dependencies {
 
 test {
     jvmArgs "-Dheadless=${project.hasProperty('headless') ? project.headless : true}"
-	useJUnitPlatform()
 	testLogging {
 		events "passed", "skipped", "failed"
 	}
