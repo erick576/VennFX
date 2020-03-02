@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: danielmapar/gradle_and_node:2.0
+      - image: circleci/jdk8:0.1.1
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -42,12 +42,18 @@ jobs:
           paths:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "VennFX/build.gradle" }}
-      - run: apt-get -y install libswt-gtk-3-java xvfb libgtk2.0-bin 
+      - run: apt-get -y install libswt-gtk-3-java xvfb libgtk2.0-bin
+      
       # run tests!
       - run: java -version
       - run: cd VennFX && ./gradlew clean test -i --stacktrace
-
-      - run: 
+      - run:
+          name: "install node"
+          command: |
+            curl -sL https://deb.nodesource.com/setup_10.x > install.sh && chmod +x install.sh && ./install.sh && apt-get install -y nodejs
+            npm install -g npm@latest
+            npm install -g github-release-cli
+     - run: 
           name: "Build and Publish Release on GitHub"
           command: |
             NOW="$(date)" 
