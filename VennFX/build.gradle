@@ -43,10 +43,10 @@ dependencies {
     implementation 'org.apache.poi:poi:3.12'
 	implementation 'org.apache.poi:poi-ooxml:3.12'
 	implementation 'com.fasterxml:aalto-xml:1.0.0'
-    compile fileTree(dir: 'libs', include: '*.jar')
-	compile fileTree(dir: "${System.properties['java.home']}", include: '**/jfxrt.jar')
+    implementation fileTree(dir: 'libs', include: '*.jar')
+	implementation fileTree(dir: "${System.properties['java.home']}", include: '**/jfxrt.jar')
     // Use JUnit test framework
-
+	implementation files("${System.properties['java.home']}/../lib/ant-javafx.jar")
 	// https://mvnrepository.com/artifact/org.testfx/openjfx-monocle
 	testCompile group: 'org.testfx', name: 'openjfx-monocle', version: '8u20-b26'
 	testRuntime "org.testfx:openjfx-monocle:8u76-b04"
