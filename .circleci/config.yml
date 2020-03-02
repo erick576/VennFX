@@ -30,6 +30,5 @@ jobs:
       - run: apt-get -y install libswt-gtk-3-java xvfb libgtk2.0-bin libXtst6 libxslt1.1
       - run: cd VennFX && chmod +x gradlew      
       - run: cd VennFX && ./gradlew dependencies
-      # run tests! and build
-      - run: cd VennFX && ./gradlew build -i --stacktrace
-      - run: cd VennFX && ./gradlew clean test --stacktrace
+      # run tests!
+      - run: cd VennFX && ./gradlew clean test -i --stacktrace
