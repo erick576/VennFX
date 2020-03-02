@@ -78,8 +78,8 @@ public class VennDiagramWindowTester extends ApplicationTest {
         System.setProperty("prism.order", "sw");
         System.setProperty("prism.text", "t2k");
         System.setProperty("java.awt.headless", "true");
-	    
 		ApplicationTest.launch(VennDiagramWindowMain.class);
+		
 	}
 
 	/* This operation comes from ApplicationTest and loads the GUI to test. */
