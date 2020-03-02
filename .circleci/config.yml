@@ -33,7 +33,6 @@ jobs:
             - v1-dependencies-
 
       - run: apt-get update
-      - run: apt-cache policy openjfx
 
       - run: cd VennFX && chmod +x gradlew      
       - run: cd VennFX && ./gradlew dependencies
@@ -42,13 +41,18 @@ jobs:
           paths:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "VennFX/build.gradle" }}
-      - run: apt-get -y install libswt-gtk-3-java xvfb libgtk2.0-bin curl
+      
+      - run: 
+          name: "Install CLI dependencies"
+          command: |
+            apt-get -y install libswt-gtk-3-java xvfb libgtk2.0-bin curl zip
 
-      # run tests!
-      - run: java -version
-      - run: cd VennFX && ./gradlew clean test -i --stacktrace
+      - run: 
+          name: "JUnit Tests"
+          command : |
+            cd VennFX && ./gradlew clean test -i --stacktrace
       - run:
-          name: "install node"
+          name: "Install node.js"
           command: |
             curl -sL https://deb.nodesource.com/setup_10.x > install.sh && chmod +x install.sh && ./install.sh && apt-get install -y nodejs
             npm install -g npm@latest
@@ -62,7 +66,6 @@ jobs:
             cd VennFX
             ./gradlew jar
             cd ./build/libs/
-            apt-get -y install zip
             zip ${ZIP_FILE_NAME}.zip VennFX.jar 
             github-release upload --token ${GITHUB_TOKEN} --owner ${PROJECT_USERNAME} --repo ${PROJECT_REPONAME} --tag ${TAG} --name ${TAG} --body "Release date: ${NOW}" ${ZIP_FILE_NAME}.zip
 
