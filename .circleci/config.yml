@@ -21,13 +21,15 @@ jobs:
       GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
       JVM_OPTS: -Xmx3200m
       TERM: xterm
-      _JAVA_OPTIONS: "-Xmx3g -Dtestfx.robot=glass -Dglass.platform=Monocle -Dmonocle.platform=Headless -Dprism.order=sw -Djava.awt.headless=true -Dtestfx.headless=true -Dprism.verbose=true -Dprism.order=sw"
+      _JAVA_OPTIONS: "-Dtestfx.robot=glass -Dglass.platform=Monocle -Dmonocle.platform=Headless -Dprism.order=sw -Djava.awt.headless=true -Dtestfx.headless=true -Dprism.verbose=true -Dprism.order=sw"
 
     steps:
       - checkout
       - run: apt-get update
       - run: apt-cache policy openjfx
       - run: apt-get -y install libswt-gtk-3-java xvfb libgtk2.0-bin libXtst6 libxslt1.1
+      - run: Xvfb :99 &>/dev/null &
+      - run: export DISPLAY=:99
       - run: cd VennFX && chmod +x gradlew      
       - run: cd VennFX && ./gradlew dependencies
       # run tests!
