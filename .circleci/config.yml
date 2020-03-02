@@ -25,6 +25,7 @@ jobs:
 
     steps:
       - checkout
+      - run: apt-get update
       - run: apt-get install libgtk2.0-0:i386 libxtst6:i386
       - run: cd VennFX && chmod +x gradlew      
       - run: cd VennFX && ./gradlew dependencies
