@@ -25,14 +25,8 @@ jobs:
 
     steps:
       - checkout
-      - run: cd VennFX && chmod +x gradlew
-      
-      - run: cd VennFX && ./gradlew check 
-      
+      - run: cd VennFX && chmod +x gradlew      
       - run: cd VennFX && ./gradlew dependencies
-
-
-
       # run tests! and build
       - run: cd VennFX && ./gradlew build --stacktrace
       - run: cd VennFX && ./gradlew clean test --stacktrace
