@@ -18,7 +18,6 @@ apply plugin: 'eclipse'
 mainClassName = 'VennDiagramMain.VennDiagramWindowMain'
 
 
-version = '1.0'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
@@ -31,7 +30,6 @@ jar {
 	}
     manifest {
         attributes 'Implementation-Title': 'VennDiagram',
-                   'Implementation-Version': version,
                    'Main-Class': mainClassName
     }
 }
@@ -46,6 +44,7 @@ dependencies {
 	implementation 'org.apache.poi:poi-ooxml:3.12'
 	implementation 'com.fasterxml:aalto-xml:1.0.0'
     compile fileTree(dir: 'libs', include: '*.jar')
+	compile fileTree(dir: "${System.properties['java.home']}", include: '**/jfxrt.jar')
     // Use JUnit test framework
 
 	// https://mvnrepository.com/artifact/org.testfx/openjfx-monocle
