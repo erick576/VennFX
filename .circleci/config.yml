@@ -27,7 +27,7 @@ jobs:
       - checkout
       - run: apt-get update
       - run: apt-cache policy openjfx
-      - run: apt-get -y install gtk3 libswt-gtk-3-java xvfb libgtk2.0-bin libXtst6 libxslt1.1
+      - run: apt-get -y install libswt-gtk-3-java xvfb libgtk2.0-bin libXtst6 libxslt1.1
       - run: cd VennFX && chmod +x gradlew      
       - run: cd VennFX && ./gradlew dependencies
       # run tests! and build
