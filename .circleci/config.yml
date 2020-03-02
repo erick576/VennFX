@@ -21,7 +21,7 @@ jobs:
       GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
       JVM_OPTS: -Xmx3200m
       TERM: xterm
-      _JAVA_OPTIONS: "-Xmx3g -Djava.awt.headless=true -Dtestfx.robot=glass -Dtestfx.headless=true -Dprism.verbose=true -Dprism.order=sw"
+      _JAVA_OPTIONS: "-Xmx3g -Dtestfx.robot=glass -Dglass.platform=Monocle -Dmonocle.platform=Headless -Dprism.order=sw -Djava.awt.headless=true -Dtestfx.headless=true -Dprism.verbose=true -Dprism.order=sw"
 
     steps:
       - checkout
