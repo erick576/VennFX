@@ -1,4 +1,4 @@
-package VennDiagramMain;
+package main.java.VennDiagramMain;
 
 import java.io.IOException;
 

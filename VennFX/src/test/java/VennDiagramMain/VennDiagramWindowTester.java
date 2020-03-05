@@ -1,4 +1,4 @@
-package VennDiagramMain;
+package test.java.VennDiagramMain;
 
 import static org.junit.Assert.*;
 

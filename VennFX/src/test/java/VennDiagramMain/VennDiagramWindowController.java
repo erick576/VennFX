@@ -1,4 +1,4 @@
-package VennDiagramMain;
+package test.java.VennDiagramMain;
 
 import java.io.FileOutputStream;
 import java.net.URL;

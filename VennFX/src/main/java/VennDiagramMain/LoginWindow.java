@@ -1,4 +1,4 @@
-package VennDiagramMain;
+package main.java.VennDiagramMain;
 
 import java.io.IOException;
 import javafx.application.Application;
@@ -21,7 +21,7 @@ public class LoginWindow extends Application {
 	private void showLoginWindowView() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("/views/LoginWindowView.fxml"));
+			loader.setLocation(getClass().getResource("LoginWindowView.fxml"));
 			mainLayout = (BorderPane) loader.load();
 			Scene scene = new Scene(mainLayout);
 			primaryStage.setScene(scene);

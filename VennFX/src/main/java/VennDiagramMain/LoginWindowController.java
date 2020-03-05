@@ -1,4 +1,4 @@
-package VennDiagramMain;
+package main.java.VennDiagramMain;
 
 import javafx.event.ActionEvent;
 import java.net.URL;
