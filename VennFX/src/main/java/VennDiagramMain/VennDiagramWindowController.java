@@ -31,7 +31,7 @@ import javafx.scene.text.Text;
 public class VennDiagramWindowController implements Initializable {
 
 	@FXML
-	public Text entry;
+	public Text filler, filler2;
 	
 	@FXML
 	public ColorPicker color1, color2;
@@ -308,7 +308,8 @@ public class VennDiagramWindowController implements Initializable {
 	// Clear Button Function
 	public void clearButton(ActionEvent event) {
 		try {
-			if (entries.size() == 0 && title1.getText().contentEquals("") && title2.getText().contentEquals("")) {
+			if (entries.size() == 0 && title1.getText().contentEquals("") && title2.getText().contentEquals("")
+					&& circle1.getFill().equals(Color.TRANSPARENT) && circle2.getFill().equals(Color.TRANSPARENT)) {
 				throw new Exception();
 			}
 			for (Text entry : entries) {
