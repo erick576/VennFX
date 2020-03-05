@@ -83,7 +83,7 @@ public class VennDiagramWindowTester extends ApplicationTest {
 
 	/* This operation comes from ApplicationTest and loads the GUI to test. */
 	public void start(Stage primaryStage) throws IOException {
-		Parent VennDiagramWindow = FXMLLoader.load(getClass().getResource("/views/VennDiagramWindowView.fxml"));
+		Parent VennDiagramWindow = FXMLLoader.load(getClass().getResource("VennDiagramWindowView.fxml"));
 		primaryStage.setScene(new Scene(VennDiagramWindow));
 		primaryStage.show();
 		primaryStage.toFront();
