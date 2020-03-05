@@ -20,14 +20,19 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 
 public class VennDiagramWindowController implements Initializable {
 
+	@FXML
+	public Text entry;
+	
 	@FXML
 	public ColorPicker color1, color2;
 
@@ -51,7 +56,7 @@ public class VennDiagramWindowController implements Initializable {
 	public static ArrayList<String> entriesAB = new ArrayList<>();
 	public static ArrayList<String> entriesA = new ArrayList<>();
 	public static ArrayList<String> entriesB = new ArrayList<>();
-	public static ArrayList<TextField> entries = new ArrayList<>();
+	public static ArrayList<Text> entries = new ArrayList<>();
 	public static String[] Titles = new String[] { "Left Side", "Right Side", "Middle" };
 
 	@Override
@@ -73,17 +78,13 @@ public class VennDiagramWindowController implements Initializable {
 			// Input Valid Text File Into Drag and Drop TextBox
 			// Enter entry into general ArrayList called "entries" for when export function
 			// is needed
-			TextField entry = new TextField();
+			Text entry = new Text();
 			entries.add(entry);
 			entry.autosize();
 			entry.setText(textField.getText());
 			entry.setVisible(true);
-			entry.setEditable(false);
 			entry.resizeRelocate(circle1.getCenterX(), circle1.getCenterY(), 1, 1);
 			entry.resize(50, 50);
-			entry.setMinWidth(30);
-			entry.setPrefWidth(30);
-			entry.setMaxWidth(150);
 
 			stackPane.getChildren().add(entry);
 			textField.setText("");
@@ -105,8 +106,8 @@ public class VennDiagramWindowController implements Initializable {
 				double offsetY = e.getSceneY() - orgSceneY;
 				double newTranslateX = orgTranslateX + offsetX;
 				double newTranslateY = orgTranslateY + offsetY;
-				((TextField) (e.getSource())).setTranslateX(newTranslateX);
-				((TextField) (e.getSource())).setTranslateY(newTranslateY);
+				((Text) (e.getSource())).setTranslateX(newTranslateX);
+				((Text) (e.getSource())).setTranslateY(newTranslateY);
 
 			});
 
@@ -239,7 +240,7 @@ public class VennDiagramWindowController implements Initializable {
 
 			// Putting the entires in the app into their respective sides based on their
 			// position
-			for (TextField entry : entries) {
+			for (Text entry : entries) {
 				Point2D leftCenter = circle1.localToParent(circle1.getCenterX(), circle1.getCenterY());
 				Point2D rightCenter = circle2.localToParent(circle2.getCenterX(), circle2.getCenterY());
 
@@ -310,7 +311,7 @@ public class VennDiagramWindowController implements Initializable {
 			if (entries.size() == 0 && title1.getText().contentEquals("") && title2.getText().contentEquals("")) {
 				throw new Exception();
 			}
-			for (TextField entry : entries) {
+			for (Text entry : entries) {
 				entry.setVisible(false);
 			}
 			entries.clear();
