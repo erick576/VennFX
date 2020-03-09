@@ -26,7 +26,7 @@ public class VennDiagramWindow extends Application {
 	private void VennDiagramWindowView() throws IOException {
 
 		this.loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/resources/views/VennDiagramWindowView.fxml"));
+		loader.setLocation(getClass().getResource("/views/VennDiagramWindowView.fxml"));
 		this.mainLayout = (AnchorPane) loader.load();
 	}
 
