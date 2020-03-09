@@ -1,4 +1,4 @@
-package VennDiagramMain;
+package main.java.VennDiagramMain;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -334,6 +334,10 @@ public class VennDiagramWindowController implements Initializable {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "No Entries!");
 		}
+		
+		entriesA.clear();
+		entriesAB.clear();
+		entriesB.clear();
 	}
 
 //	// Import Button Function
