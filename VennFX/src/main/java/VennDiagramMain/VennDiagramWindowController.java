@@ -1,10 +1,17 @@
 package VennDiagramMain;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.Stack;
+
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -25,8 +32,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 
 public class VennDiagramWindowController implements Initializable {
+
+	@FXML
+	public Text filler, filler2;
 
 	@FXML
 	public ColorPicker color1, color2;
@@ -44,15 +55,20 @@ public class VennDiagramWindowController implements Initializable {
 	public Circle circle2;
 
 	@FXML
-	public Button entryButton, title1Button, title2Button, change1Button, change2Button, exportButton, clearButton;
+	public Button entryButton, title1Button, title2Button, change1Button, change2Button, exportButton, importButton,
+			clearButton;
 
 	double orgSceneX, orgSceneY;
 	double orgTranslateX, orgTranslateY;
 	public static ArrayList<String> entriesAB = new ArrayList<>();
 	public static ArrayList<String> entriesA = new ArrayList<>();
 	public static ArrayList<String> entriesB = new ArrayList<>();
-	public static ArrayList<TextField> entries = new ArrayList<>();
+	public static ArrayList<Text> entries = new ArrayList<>();
 	public static String[] Titles = new String[] { "Left Side", "Right Side", "Middle" };
+	public static String fileDictName = "";
+	public static Stack<TextEntry> undo = new Stack<>();
+	public static Stack<TextEntry> redo = new Stack<>();
+	public static Stack<TextEntry> allEntries = new Stack<>();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -73,17 +89,13 @@ public class VennDiagramWindowController implements Initializable {
 			// Input Valid Text File Into Drag and Drop TextBox
 			// Enter entry into general ArrayList called "entries" for when export function
 			// is needed
-			TextField entry = new TextField();
+			Text entry = new Text();
 			entries.add(entry);
 			entry.autosize();
 			entry.setText(textField.getText());
 			entry.setVisible(true);
-			entry.setEditable(false);
 			entry.resizeRelocate(circle1.getCenterX(), circle1.getCenterY(), 1, 1);
 			entry.resize(50, 50);
-			entry.setMinWidth(30);
-			entry.setPrefWidth(30);
-			entry.setMaxWidth(150);
 
 			stackPane.getChildren().add(entry);
 			textField.setText("");
@@ -105,13 +117,15 @@ public class VennDiagramWindowController implements Initializable {
 				double offsetY = e.getSceneY() - orgSceneY;
 				double newTranslateX = orgTranslateX + offsetX;
 				double newTranslateY = orgTranslateY + offsetY;
-				((TextField) (e.getSource())).setTranslateX(newTranslateX);
-				((TextField) (e.getSource())).setTranslateY(newTranslateY);
+				((Text) (e.getSource())).setTranslateX(newTranslateX);
+				((Text) (e.getSource())).setTranslateY(newTranslateY);
 
 			});
 
-			// Dragging into HotZone Functionallity (Everything is implemented But Without Hotzones)
-			// Will warn user if entry is outside of venn diagram (Entry positions will be calculated at the end when the user wants to export the entries)
+			// Dragging into HotZone Functionallity (Everything is implemented But Without
+			// Hotzones)
+			// Will warn user if entry is outside of venn diagram (Entry positions will be
+			// calculated at the end when the user wants to export the entries)
 
 			entry.addEventHandler(MouseEvent.MOUSE_RELEASED, e -> {
 
@@ -213,7 +227,6 @@ public class VennDiagramWindowController implements Initializable {
 		}
 	}
 
-
 	public void color1(ActionEvent event) {
 		try {
 			Color selectedColor = color1.getValue();
@@ -234,12 +247,12 @@ public class VennDiagramWindowController implements Initializable {
 	}
 
 	// Export CSV Function Here
-	public void exportButton(ActionEvent event) {
+	public void exportButton(ActionEvent event) throws InvalidFileException {
 		try {
 
 			// Putting the entires in the app into their respective sides based on their
 			// position
-			for (TextField entry : entries) {
+			for (Text entry : entries) {
 				Point2D leftCenter = circle1.localToParent(circle1.getCenterX(), circle1.getCenterY());
 				Point2D rightCenter = circle2.localToParent(circle2.getCenterX(), circle2.getCenterY());
 
@@ -269,11 +282,30 @@ public class VennDiagramWindowController implements Initializable {
 
 			// Saving it onto the excel sheet
 			int max = Math.max(Math.max(entriesA.size(), entriesB.size()), entriesAB.size());
+
+			JFileChooser fileChooser = new JFileChooser();
+			fileChooser.setDialogTitle("Save the file");
+			FileFilter filter = new FileNameExtensionFilter("Files", ".xlsx");
+			fileChooser.setAcceptAllFileFilterUsed(false);
+			fileChooser.addChoosableFileFilter(filter);
+			fileChooser.setSelectedFile(new File(fileDictName));
+			fileChooser.setVisible(true);
+			JFileChooser jfc = new JFileChooser();
+			final JFrame frame = new JFrame();
+			int res = jfc.showSaveDialog(frame);
+			File file = jfc.getSelectedFile();
+			if (res != JFileChooser.APPROVE_OPTION) {
+				return;
+			}
+
+			if (!file.getName().subSequence(file.getName().length() - 5, file.getName().length()).equals(".xlsx")) {
+				throw new InvalidFileException("");
+			}
+
 			Workbook workbook = new XSSFWorkbook();
+
 			Sheet sheet = workbook.createSheet("Results");
-
 			Row headerRow = sheet.createRow(0);
-
 			for (int i = 0; i < 3; i++) {
 				Cell cell = headerRow.createCell(i);
 				cell.setCellValue(Titles[i]);
@@ -292,25 +324,58 @@ public class VennDiagramWindowController implements Initializable {
 				}
 			}
 
-			FileOutputStream fileOut = new FileOutputStream("Results.xlsx");
-			workbook.write(fileOut);
-			fileOut.close();
+			FileOutputStream doc = new FileOutputStream(file.getPath());
+			workbook.write(doc);
+			doc.close();
 			workbook.close();
 			JOptionPane.showMessageDialog(null, "Entries Saved!");
 
+		} catch (InvalidFileException e) {
+			JOptionPane.showMessageDialog(null, "Invalid File!");
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "No Entries Stored");
-
+			JOptionPane.showMessageDialog(null, "No Entries!");
 		}
 	}
+
+//	// Import Button Function
+//	public void importButton(ActionEvent event) throws InvalidFileException {
+//		try {
+//			JFileChooser fileChooser = new JFileChooser();
+//			fileChooser.setDialogTitle("Save the file");
+//			FileFilter filter = new FileNameExtensionFilter("Files", ".xlsx");
+//			fileChooser.setAcceptAllFileFilterUsed(false);
+//			fileChooser.addChoosableFileFilter(filter);
+//			fileChooser.setSelectedFile(new File(fileDictName));
+//			fileChooser.setVisible(true);
+//			JFileChooser jfc = new JFileChooser();
+//			final JFrame frame = new JFrame();
+//			int res = jfc.showSaveDialog(frame);
+//			File file = jfc.getSelectedFile();
+//			if (res != JFileChooser.APPROVE_OPTION) {
+//				return;
+//			}
+//			
+//			if (!file.getName().subSequence(file.getName().length() - 5, file.getName().length()).equals(".xlsx")) {
+//				throw new InvalidFileException("");
+//			}
+//			
+//			
+//			
+//		} catch (InvalidFileException e) {
+//			JOptionPane.showMessageDialog(null, "Invalid File!");
+//		} catch (Exception e) {
+//			JOptionPane.showMessageDialog(null, "No Entries!");
+//		}
+//	}
 
 	// Clear Button Function
 	public void clearButton(ActionEvent event) {
 		try {
-			if (entries.size() == 0 && title1.getText().contentEquals("") && title2.getText().contentEquals("")) {
+			if (entries.size() == 0 && title1.getText().contentEquals("") && title2.getText().contentEquals("")
+					&& circle1.getFill().equals(Color.TRANSPARENT) && circle2.getFill().equals(Color.TRANSPARENT)) {
 				throw new Exception();
 			}
-			for (TextField entry : entries) {
+			for (Text entry : entries) {
 				entry.setVisible(false);
 			}
 			entries.clear();
@@ -323,5 +388,19 @@ public class VennDiagramWindowController implements Initializable {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Is Already Empty");
 		}
+
+	}
+	
+	//Undo Button Function
+	public void undoButton(ActionEvent event) {
+		
+		
+	}
+	
+	
+	
+	//Redo Button Function
+	public void redoButton(ActionEvent event) {
+		
 	}
 }
