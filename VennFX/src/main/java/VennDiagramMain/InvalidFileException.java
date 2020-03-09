@@ -1,4 +1,4 @@
-package main.java.VennDiagramMain;
+package VennDiagramMain;
 
 public class InvalidFileException extends Exception {
 	/**
