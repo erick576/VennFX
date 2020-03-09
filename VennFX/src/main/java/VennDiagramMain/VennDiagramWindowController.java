@@ -335,6 +335,10 @@ public class VennDiagramWindowController implements Initializable {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "No Entries!");
 		}
+					
+		entriesA.clear();
+		entriesAB.clear();
+		entriesB.clear();
 	}
 
 //	// Import Button Function
@@ -390,7 +394,7 @@ public class VennDiagramWindowController implements Initializable {
 		}
 
 	}
-	
+
 	//Undo Button Function
 	public void undoButton(ActionEvent event) {
 		
