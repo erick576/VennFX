@@ -27,6 +27,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
@@ -63,7 +65,7 @@ public class VennDiagramWindowController implements Initializable {
 	public static ArrayList<String> entriesAB = new ArrayList<>();
 	public static ArrayList<String> entriesA = new ArrayList<>();
 	public static ArrayList<String> entriesB = new ArrayList<>();
-	public static ArrayList<Text> entries = new ArrayList<>();
+	public static ArrayList<TextField> entries = new ArrayList<>();
 	public static String[] Titles = new String[] { "Left Side", "Right Side", "Middle" };
 	public static String fileDictName = "";
 	public static Stack<TextEntry> undo = new Stack<>();
@@ -89,17 +91,32 @@ public class VennDiagramWindowController implements Initializable {
 			// Input Valid Text File Into Drag and Drop TextBox
 			// Enter entry into general ArrayList called "entries" for when export function
 			// is needed
-			Text entry = new Text();
+			TextField entry = new TextField();
 			entries.add(entry);
 			entry.autosize();
 			entry.setText(textField.getText());
 			entry.setVisible(true);
+			entry.setEditable(false);
 			entry.resizeRelocate(circle1.getCenterX(), circle1.getCenterY(), 1, 1);
 			entry.resize(50, 50);
+			entry.setMinWidth(30);
+			entry.setPrefWidth(30);
+			entry.setMaxWidth(150);
 
 			stackPane.getChildren().add(entry);
 			textField.setText("");
-
+			ContextMenu context = new ContextMenu();
+			MenuItem item1= new MenuItem("Delete");
+			context.getItems().addAll(item1);
+			entry.setContextMenu(context);
+			item1.setOnAction(e -> entries.remove(entries.indexOf(MouseEvent.MOUSE_CLICKED)));
+			item1.setOnAction(e -> entry.setVisible(false));
+			
+			// 
+			
+				
+				
+			
 			// Drag and Drop Functionality
 			entry.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
 
@@ -117,11 +134,11 @@ public class VennDiagramWindowController implements Initializable {
 				double offsetY = e.getSceneY() - orgSceneY;
 				double newTranslateX = orgTranslateX + offsetX;
 				double newTranslateY = orgTranslateY + offsetY;
-				((Text) (e.getSource())).setTranslateX(newTranslateX);
-				((Text) (e.getSource())).setTranslateY(newTranslateY);
+				((TextField) (e.getSource())).setTranslateX(newTranslateX);
+				((TextField) (e.getSource())).setTranslateY(newTranslateY);
 
 			});
-
+			
 			// Dragging into HotZone Functionallity (Everything is implemented But Without
 			// Hotzones)
 			// Will warn user if entry is outside of venn diagram (Entry positions will be
@@ -159,7 +176,10 @@ public class VennDiagramWindowController implements Initializable {
 			textField.setText("");
 		}
 	}
-
+	
+	
+	
+	
 	// Set Title1
 	public void title1Button(ActionEvent event) {
 		try {
@@ -252,7 +272,7 @@ public class VennDiagramWindowController implements Initializable {
 
 			// Putting the entires in the app into their respective sides based on their
 			// position
-			for (Text entry : entries) {
+			for (TextField entry : entries) {
 				Point2D leftCenter = circle1.localToParent(circle1.getCenterX(), circle1.getCenterY());
 				Point2D rightCenter = circle2.localToParent(circle2.getCenterX(), circle2.getCenterY());
 
@@ -327,7 +347,7 @@ public class VennDiagramWindowController implements Initializable {
 			FileOutputStream doc = new FileOutputStream(file.getPath());
 			workbook.write(doc);
 			doc.close();
-			workbook.close();
+			((FileOutputStream) workbook).close();
 			JOptionPane.showMessageDialog(null, "Entries Saved!");
 
 		} catch (InvalidFileException e) {
@@ -339,7 +359,7 @@ public class VennDiagramWindowController implements Initializable {
 		entriesA.clear();
 		entriesAB.clear();
 		entriesB.clear();
-	}
+	}	
 
 //	// Import Button Function
 //	public void importButton(ActionEvent event) throws InvalidFileException {
@@ -379,7 +399,7 @@ public class VennDiagramWindowController implements Initializable {
 					&& circle1.getFill().equals(Color.TRANSPARENT) && circle2.getFill().equals(Color.TRANSPARENT)) {
 				throw new Exception();
 			}
-			for (Text entry : entries) {
+			for (TextField entry : entries) {
 				entry.setVisible(false);
 			}
 			entries.clear();
