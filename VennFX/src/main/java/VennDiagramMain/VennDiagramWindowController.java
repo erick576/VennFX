@@ -31,6 +31,8 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -76,6 +78,7 @@ public class VennDiagramWindowController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 	}
 
+	@SuppressWarnings("unlikely-arg-type")
 	public void entryButton(ActionEvent event) {
 		try {
 
@@ -105,16 +108,13 @@ public class VennDiagramWindowController implements Initializable {
 
 			stackPane.getChildren().add(entry);
 			textField.setText("");
+			entry.setBackground(Background.EMPTY);
 			ContextMenu context = new ContextMenu();
 			MenuItem item1= new MenuItem("Delete");
 			context.getItems().addAll(item1);
 			entry.setContextMenu(context);
 			item1.setOnAction(e -> entries.remove(entries.indexOf(MouseEvent.MOUSE_CLICKED)));
 			item1.setOnAction(e -> entry.setVisible(false));
-			
-			// 
-			
-				
 				
 			
 			// Drag and Drop Functionality
