@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.EmptyStackException;
 import java.util.ResourceBundle;
 import java.util.Stack;
 
@@ -32,7 +33,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -70,15 +70,22 @@ public class VennDiagramWindowController implements Initializable {
 	public static ArrayList<TextField> entries = new ArrayList<>();
 	public static String[] Titles = new String[] { "Left Side", "Right Side", "Middle" };
 	public static String fileDictName = "";
-	public static Stack<TextEntry> undo = new Stack<>();
-	public static Stack<TextEntry> redo = new Stack<>();
-	public static Stack<TextEntry> allEntries = new Stack<>();
+	private Stack<Operation> undo = new Stack<>();
+	private Stack<Operation> redo = new Stack<>();
+	public static Stack<Operation> allEntries = new Stack<>();
+
+	public VennDiagramWindowController() {
+
+	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		this.undo = new Stack<>();
+		this.redo = new Stack<>();
+		circle1.setFill(Color.TRANSPARENT);
+		circle2.setFill(Color.TRANSPARENT);
 	}
 
-	@SuppressWarnings("unlikely-arg-type")
 	public void entryButton(ActionEvent event) {
 		try {
 
@@ -87,7 +94,7 @@ public class VennDiagramWindowController implements Initializable {
 			}
 
 			// Add Entry into the set
-			// When hotZones are inplemented and dragged into a cerain zone add the text to
+			// When hotZones are implemented and dragged into a certain zone add the text to
 			// the set like below for example
 			// entriesA.add(textField.getText());
 
@@ -106,17 +113,27 @@ public class VennDiagramWindowController implements Initializable {
 			entry.setPrefWidth(30);
 			entry.setMaxWidth(150);
 
+			Operation c = new TextCreationOperation(this, entry);
+			undo.push(c);
+			undo.push(new TextMovementOperation(this, entry, entry.getTranslateX(), entry.getTranslateY()));
+
 			stackPane.getChildren().add(entry);
 			textField.setText("");
 			entry.setBackground(Background.EMPTY);
 			ContextMenu context = new ContextMenu();
-			MenuItem item1= new MenuItem("Delete");
-			context.getItems().addAll(item1);
+			MenuItem item1 = new MenuItem("Delete");
+			MenuItem item2 = new MenuItem("Edit");
+			MenuItem item3 = new MenuItem("Lock");
+			context.getItems().addAll(item1, item2, item3);
 			entry.setContextMenu(context);
-			item1.setOnAction(e -> entries.remove(entries.indexOf(MouseEvent.MOUSE_CLICKED)));
-			item1.setOnAction(e -> entry.setVisible(false));
-				
-			
+			item1.setOnAction(e -> {
+				entries.remove(entry);
+				entry.setVisible(false);
+				undo.push(new TextRemovedOperation(this, entry));
+			});
+			item2.setOnAction(e -> entry.setEditable(true));
+			item3.setOnAction(e -> entry.setEditable(false));
+
 			// Drag and Drop Functionality
 			entry.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
 
@@ -138,10 +155,10 @@ public class VennDiagramWindowController implements Initializable {
 				((TextField) (e.getSource())).setTranslateY(newTranslateY);
 
 			});
-			
-			// Dragging into HotZone Functionallity (Everything is implemented But Without
-			// Hotzones)
-			// Will warn user if entry is outside of venn diagram (Entry positions will be
+
+			// Dragging into HotZone Functionality (Everything is implemented But Without
+			// HotZones)
+			// Will warn user if entry is outside of VennDiagram (Entry positions will be
 			// calculated at the end when the user wants to export the entries)
 
 			entry.addEventHandler(MouseEvent.MOUSE_RELEASED, e -> {
@@ -169,6 +186,8 @@ public class VennDiagramWindowController implements Initializable {
 					alert.showAndWait();
 				}
 
+				undo.push(new TextMovementOperation(this, entry, entry.getTranslateX(), entry.getTranslateY()));
+
 			});
 
 		} catch (Exception e1) {
@@ -176,10 +195,7 @@ public class VennDiagramWindowController implements Initializable {
 			textField.setText("");
 		}
 	}
-	
-	
-	
-	
+
 	// Set Title1
 	public void title1Button(ActionEvent event) {
 		try {
@@ -192,6 +208,8 @@ public class VennDiagramWindowController implements Initializable {
 			JOptionPane.showMessageDialog(null, "Title Is Now Locked");
 			title1.setEditable(false);
 			Titles[0] = title1.getText();
+			Operation c = new TitleTextOperation(this, title1.getText(), "", 1);
+			undo.push(c);
 
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Please enter a valid entry");
@@ -211,7 +229,8 @@ public class VennDiagramWindowController implements Initializable {
 			JOptionPane.showMessageDialog(null, "Title Is Now Locked");
 			title2.setEditable(false);
 			Titles[1] = title2.getText();
-
+			Operation c = new TitleTextOperation(this, title2.getText(), "", 2);
+			undo.push(c);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Please enter a valid entry");
 			title2.setText("");
@@ -250,6 +269,8 @@ public class VennDiagramWindowController implements Initializable {
 	public void color1(ActionEvent event) {
 		try {
 			Color selectedColor = color1.getValue();
+			Operation c = new ColorOperation(this, selectedColor, (Color) circle1.getFill(), this.circle1);
+			undo.push(c);
 			circle1.setFill(selectedColor);
 		} catch (Exception e) {
 
@@ -259,8 +280,9 @@ public class VennDiagramWindowController implements Initializable {
 	public void color2(ActionEvent event) {
 		try {
 			Color selectedColor = color2.getValue();
+			Operation c = new ColorOperation(this, selectedColor, (Color) circle2.getFill(), this.circle2);
+			undo.push(c);
 			circle2.setFill(selectedColor);
-
 		} catch (Exception e) {
 
 		}
@@ -270,7 +292,7 @@ public class VennDiagramWindowController implements Initializable {
 	public void exportButton(ActionEvent event) throws InvalidFileException {
 		try {
 
-			// Putting the entires in the app into their respective sides based on their
+			// Putting the entries in the App into their respective sides based on their
 			// position
 			for (TextField entry : entries) {
 				Point2D leftCenter = circle1.localToParent(circle1.getCenterX(), circle1.getCenterY());
@@ -347,7 +369,7 @@ public class VennDiagramWindowController implements Initializable {
 			FileOutputStream doc = new FileOutputStream(file.getPath());
 			workbook.write(doc);
 			doc.close();
-			((FileOutputStream) workbook).close();
+			workbook.close();
 			JOptionPane.showMessageDialog(null, "Entries Saved!");
 
 		} catch (InvalidFileException e) {
@@ -355,11 +377,11 @@ public class VennDiagramWindowController implements Initializable {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "No Entries!");
 		}
-					
+
 		entriesA.clear();
 		entriesAB.clear();
 		entriesB.clear();
-	}	
+	}
 
 //	// Import Button Function
 //	public void importButton(ActionEvent event) throws InvalidFileException {
@@ -409,22 +431,121 @@ public class VennDiagramWindowController implements Initializable {
 			title2.setEditable(true);
 			circle1.setFill(Color.TRANSPARENT);
 			circle2.setFill(Color.TRANSPARENT);
+			undo.clear();
+			redo.clear();
+			circle1.setFill(Color.TRANSPARENT);
+			circle2.setFill(Color.TRANSPARENT);
+
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Is Already Empty");
 		}
 
 	}
 
-	//Undo Button Function
-	public void undoButton(ActionEvent event) {
-		
-		
+	// Undo Button Function
+	public void undoButton(ActionEvent event) throws EmptyStackException {
+		try {
+			if (undo.size() > 0) {
+				redo.push(undo.pop());
+				Operation holder = redo.peek();
+				holder.executeUndo();
+			}
+		} catch (EmptyStackException e) {
+			circle1.setFill(Color.TRANSPARENT);
+			circle2.setFill(Color.TRANSPARENT);
+			title1.setText("");
+			title2.setText("");
+			title1.setEditable(true);
+			title2.setEditable(true);
+			textField.setText("");
+		}
 	}
-	
-	
-	
-	//Redo Button Function
-	public void redoButton(ActionEvent event) {
-		
+
+	// Redo Button Function
+	public void redoButton(ActionEvent event) throws EmptyStackException {
+		try {
+			if (redo.size() > 0) {
+				undo.push(redo.pop());
+				Operation holder = undo.peek();
+				holder.executeRedo();
+			}
+		} catch (EmptyStackException e) {
+			if (undo.size() == 0) {
+				circle1.setFill(Color.TRANSPARENT);
+				circle2.setFill(Color.TRANSPARENT);
+				title1.setText("");
+				title2.setText("");
+				title1.setEditable(true);
+				title2.setEditable(true);
+				textField.setText("");
+			}
+		}
 	}
+
+	public void setColorRedo(Circle circle, Color color, Color prev) {
+		if (circle1.equals(circle) && circle1.getFill().equals(Color.TRANSPARENT)) {
+			circle1.setFill(color);
+		} else if (circle1.equals(circle) && !circle1.getFill().equals(Color.TRANSPARENT)) {
+			circle1.setFill(prev);
+		} else if (circle2.equals(circle) && circle2.getFill().equals(Color.TRANSPARENT)
+				|| (!prev.equals(Color.TRANSPARENT) && !color.equals(Color.TRANSPARENT))) {
+			circle2.setFill(color);
+		} else if (circle2.equals(circle) && !circle2.getFill().equals(Color.TRANSPARENT)) {
+			circle2.setFill(prev);
+		}
+	}
+
+	public void setColorUndo(Circle circle, Color color, Color prev) {
+		if (circle1.equals(circle) && circle1.getFill().equals(Color.TRANSPARENT)) {
+			circle1.setFill(color);
+		} else if (circle1.equals(circle) && !circle1.getFill().equals(Color.TRANSPARENT)) {
+			circle1.setFill(prev);
+		} else if (circle2.equals(circle) && circle2.getFill().equals(Color.TRANSPARENT)) {
+			circle2.setFill(color);
+		} else if (circle2.equals(circle) && !circle2.getFill().equals(Color.TRANSPARENT)) {
+			circle2.setFill(prev);
+		}
+	}
+
+	public void setTitle(String title, String prev, int side) {
+		if (side == 1 && !title1.getText().equals("")) {
+			title1.setEditable(true);
+			title1.setText(prev);
+		} else if (side == 1 && title1.getText().equals("")) {
+			title1.setEditable(true);
+			title1.setText(title);
+		} else if (side == 2 && !title2.getText().equals("")) {
+			title2.setEditable(true);
+			title2.setText(prev);
+		} else if (side == 2 && title2.getText().equals("")) {
+			title2.setEditable(true);
+			title2.setText(title);
+		}
+	}
+
+	public void setEntryRedo(TextField entry) {
+		entry.setVisible(true);
+		entries.add(entry);
+	}
+
+	public void setEntryUndo(TextField entry) {
+		entry.setVisible(false);
+		entries.remove(entry);
+	}
+
+	public void setMovement(TextField entry, double coordinateX, double coordinateY) {
+		entry.setTranslateX(coordinateX);
+		entry.setTranslateY(coordinateY);
+	}
+
+	public void removedEntryUndo(TextField entry) {
+		entry.setVisible(true);
+		entries.add(entry);
+	}
+
+	public void removedEntryRedo(TextField entry) {
+		entry.setVisible(false);
+		entries.remove(entry);
+	}
+
 }
