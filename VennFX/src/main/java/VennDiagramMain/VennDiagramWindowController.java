@@ -445,7 +445,6 @@ public class VennDiagramWindowController implements Initializable {
 	private boolean isClear() {
 		boolean clear = false;
 		Alert alert = new Alert(AlertType.WARNING);
-		alert.setContentText("This function will clear all content of VennDiagram.");
 		alert.setTitle("Clear all");
 		alert.setHeaderText("Are you sure you want to clear all entries?");
 		ButtonType cancelButtonType = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
