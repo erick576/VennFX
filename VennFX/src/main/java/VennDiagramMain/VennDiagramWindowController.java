@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.EmptyStackException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Stack;
 
@@ -27,6 +28,8 @@ import javafx.geometry.Point2D;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -266,6 +269,7 @@ public class VennDiagramWindowController implements Initializable {
 		}
 	}
 
+	// Change Color on Circle1
 	public void color1(ActionEvent event) {
 		try {
 			Color selectedColor = color1.getValue();
@@ -277,6 +281,7 @@ public class VennDiagramWindowController implements Initializable {
 		}
 	}
 
+	// Change Color on Circle2
 	public void color2(ActionEvent event) {
 		try {
 			Color selectedColor = color2.getValue();
@@ -414,13 +419,13 @@ public class VennDiagramWindowController implements Initializable {
 //		}
 //	}
 
-	// Clear Button Function
 	public void clearButton(ActionEvent event) {
 		try {
 			if (entries.size() == 0 && title1.getText().contentEquals("") && title2.getText().contentEquals("")
 					&& circle1.getFill().equals(Color.TRANSPARENT) && circle2.getFill().equals(Color.TRANSPARENT)) {
 				throw new Exception();
 			}
+			if(isClear()) {
 			for (TextField entry : entries) {
 				entry.setVisible(false);
 			}
@@ -431,15 +436,25 @@ public class VennDiagramWindowController implements Initializable {
 			title2.setEditable(true);
 			circle1.setFill(Color.TRANSPARENT);
 			circle2.setFill(Color.TRANSPARENT);
-			undo.clear();
-			redo.clear();
-			circle1.setFill(Color.TRANSPARENT);
-			circle2.setFill(Color.TRANSPARENT);
-
+		}
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Is Already Empty");
 		}
+	}
 
+	private boolean isClear() {
+		boolean clear = false;
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setContentText("This function will clear all content of VennDiagram.");
+		alert.setTitle("Clear all");
+		alert.setHeaderText("Are you sure you want to clear all entries?");
+		ButtonType cancelButtonType = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+		alert.getDialogPane().getButtonTypes().add(cancelButtonType);
+		Optional<ButtonType> result = alert.showAndWait();
+		if(result.isPresent() && result.get() == ButtonType.OK) {
+			clear = true;
+		}
+		return clear;
 	}
 
 	// Undo Button Function
@@ -482,6 +497,7 @@ public class VennDiagramWindowController implements Initializable {
 		}
 	}
 
+	// Color Function for Redo Button
 	public void setColorRedo(Circle circle, Color color, Color prev) {
 		if (circle1.equals(circle) && circle1.getFill().equals(Color.TRANSPARENT)) {
 			circle1.setFill(color);
@@ -495,6 +511,7 @@ public class VennDiagramWindowController implements Initializable {
 		}
 	}
 
+	// Color Function for Undo Button
 	public void setColorUndo(Circle circle, Color color, Color prev) {
 		if (circle1.equals(circle) && circle1.getFill().equals(Color.TRANSPARENT)) {
 			circle1.setFill(color);
@@ -507,6 +524,7 @@ public class VennDiagramWindowController implements Initializable {
 		}
 	}
 
+	// Title Function for Undo And Redo Button
 	public void setTitle(String title, String prev, int side) {
 		if (side == 1 && !title1.getText().equals("")) {
 			title1.setEditable(true);
@@ -523,26 +541,31 @@ public class VennDiagramWindowController implements Initializable {
 		}
 	}
 
+	// Entry Function for Redo Button
 	public void setEntryRedo(TextField entry) {
 		entry.setVisible(true);
 		entries.add(entry);
 	}
 
+	// Entry Function for Undo Button
 	public void setEntryUndo(TextField entry) {
 		entry.setVisible(false);
 		entries.remove(entry);
 	}
 
+	// Drag Function for Undo and Redo Button
 	public void setMovement(TextField entry, double coordinateX, double coordinateY) {
 		entry.setTranslateX(coordinateX);
 		entry.setTranslateY(coordinateY);
 	}
 
+	// Remove Entry Function for Undo Button
 	public void removedEntryUndo(TextField entry) {
 		entry.setVisible(true);
 		entries.add(entry);
 	}
 
+	// Remove Entry Function for Redo But
 	public void removedEntryRedo(TextField entry) {
 		entry.setVisible(false);
 		entries.remove(entry);

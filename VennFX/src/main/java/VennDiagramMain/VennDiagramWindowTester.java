@@ -283,5 +283,9 @@ public class VennDiagramWindowTester extends ApplicationTest {
 		assertEquals(textField.getText(), "");
 	}
 	
+	@Test
+	public void UndoRedoTester() throws InterruptedException {
+		
+	}
 
 }
