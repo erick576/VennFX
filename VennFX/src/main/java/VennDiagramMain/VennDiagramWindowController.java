@@ -308,8 +308,7 @@ public class VennDiagramWindowController implements Initializable {
 	public void exportButton(ActionEvent event) throws InvalidFileException {
 		try {
 
-			// Putting the entries in the App into their respective sides based on their
-			// position
+			// Putting the entries in the Application into their respective sides based on their position
 			for (TextField entry : entries) {
 				Point2D leftCenter = circle1.localToParent(circle1.getCenterX(), circle1.getCenterY());
 				Point2D rightCenter = circle2.localToParent(circle2.getCenterX(), circle2.getCenterY());
@@ -422,7 +421,11 @@ public class VennDiagramWindowController implements Initializable {
 			}
 
 			if (importWarning()) {
+				for(TextField entry: entries) {
+					entry.setVisible(false);
+				}
 				entries.clear();
+				ylevel = -150;
 				Workbook wb = WorkbookFactory.create(new File(file.getName()));
 				Sheet s = wb.getSheetAt(0);
 				DataFormatter dataFormatter = new DataFormatter();
