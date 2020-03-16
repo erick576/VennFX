@@ -50,23 +50,23 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Text>
-            <Button fx:id="exportButton" layoutX="1133.0" layoutY="662.0" mnemonicParsing="false" onAction="#exportButton" prefHeight="43.0" prefWidth="119.0" text="Export">
+            <Button fx:id="exportButton" layoutX="1133.0" layoutY="677.0" mnemonicParsing="false" onAction="#exportButton" prefHeight="43.0" prefWidth="119.0" text="Export">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="clearButton" layoutX="1133.0" layoutY="605.0" mnemonicParsing="false" onAction="#clearButton" prefHeight="43.0" prefWidth="119.0" text="Clear All">
+            <Button fx:id="clearButton" layoutX="1133.0" layoutY="575.0" mnemonicParsing="false" onAction="#clearButton" prefHeight="43.0" prefWidth="119.0" text="Clear All">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
             <Text fx:id="filler2" layoutX="14.0" layoutY="446.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-            <Button fx:id="undoButton" layoutX="1133.0" layoutY="517.0" mnemonicParsing="false" onAction="#undoButton" prefHeight="70.0" prefWidth="58.0" text="Undo">
+            <Button fx:id="undoButton" layoutX="1133.0" layoutY="497.0" mnemonicParsing="false" onAction="#undoButton" prefHeight="70.0" prefWidth="58.0" text="Undo">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="redoButton" layoutX="1194.0" layoutY="517.0" mnemonicParsing="false" onAction="#redoButton" prefHeight="70.0" prefWidth="58.0" text="Redo">
+            <Button fx:id="redoButton" layoutX="1194.0" layoutY="497.0" mnemonicParsing="false" onAction="#redoButton" prefHeight="70.0" prefWidth="58.0" text="Redo">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -74,6 +74,11 @@
             <Button fx:id="entryButton" layoutX="830.0" layoutY="56.0" mnemonicParsing="false" onAction="#entryButton" prefHeight="43.0" prefWidth="100.0" text="Enter">
                <font>
                   <Font name="System Bold" size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="importButton" layoutX="1133.0" layoutY="625.0" mnemonicParsing="false" onAction="#importButton" prefHeight="43.0" prefWidth="119.0" text="Import">
+               <font>
+                  <Font name="System Bold" size="14.0" />
                </font>
             </Button>
          </children>
