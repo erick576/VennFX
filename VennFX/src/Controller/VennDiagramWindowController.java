@@ -1,4 +1,4 @@
-package main.java.VennDiagramMain;
+package Controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -24,6 +24,12 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import Model.ColorOperation;
+import Model.Operation;
+import Model.TextCreationOperation;
+import Model.TextMovementOperation;
+import Model.TextRemovedOperation;
+import Model.TitleTextOperation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -65,8 +71,7 @@ public class VennDiagramWindowController implements Initializable {
 	public Circle circle2;
 
 	@FXML
-	public Button entryButton, title1Button, title2Button, change1Button, change2Button, exportButton, importButton,
-			clearButton;
+	public Button entryButton, title1Button, title2Button, change1Button, change2Button, exportButton, importButton, clearButton;
 
 	private static int ylevel = -150;
 	private static final int xlevel = 30;
@@ -643,6 +648,7 @@ public class VennDiagramWindowController implements Initializable {
 		entry.setTranslateY(coordinateY);
 	}
 
+	
 	// Remove Entry Function for Undo Button
 	public void removedEntryUndo(TextField entry) {
 		entry.setVisible(true);
@@ -653,7 +659,7 @@ public class VennDiagramWindowController implements Initializable {
 		}
 	}
 
-	// Remove Entry Function for Redo But
+	// Remove Entry Function for Redo Button
 	public void removedEntryRedo(TextField entry) {
 		entry.setVisible(false);
 		entries.remove(entry);

@@ -1,4 +1,4 @@
-package main.java.VennDiagramMain;
+package Main;
 
 import java.io.IOException;
 
@@ -8,11 +8,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class LoginWindowMain extends Application {
+public class VennDiagramWindowMain extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws IOException {
-		Parent mainNode = FXMLLoader.load(getClass().getResource("LoginWindowView.fxml"));
+		Parent mainNode = FXMLLoader.load(getClass().getResource("/View/VennDiagramWindowView.fxml"));
 		primaryStage.setScene(new Scene(mainNode));
 		primaryStage.show();
 		primaryStage.toFront();
@@ -21,4 +21,5 @@ public class LoginWindowMain extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+
 }

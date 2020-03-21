@@ -1,4 +1,4 @@
-package main.java.VennDiagramMain;
+package Test;
 
 import static org.junit.Assert.assertEquals;
 import java.io.IOException;
@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
 
+import Main.LoginWindowMain;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -42,7 +43,7 @@ public class LoginWindowTester extends ApplicationTest {
 
 	/* This operation comes from ApplicationTest and loads the GUI to test. */
 	public void start(Stage primaryStage) throws IOException {
-		Parent loginWindow = FXMLLoader.load(getClass().getResource("LoginWindowView.fxml"));
+		Parent loginWindow = FXMLLoader.load(getClass().getResource("/View/LoginWindowView.fxml"));
 		primaryStage.setScene(new Scene(loginWindow));
 		primaryStage.show();
 		primaryStage.toFront();

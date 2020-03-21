@@ -1,4 +1,6 @@
-package main.java.VennDiagramMain;
+package Model;
+
+import Controller.VennDiagramWindowController;
 
 public class TitleTextOperation  implements Operation {
 

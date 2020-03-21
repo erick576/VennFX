@@ -1,4 +1,4 @@
-package main.java.VennDiagramMain;
+package Model;
 
 public class AccessToLogin {
 	private final static String username = "root";

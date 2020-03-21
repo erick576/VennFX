@@ -1,4 +1,4 @@
-package main.java.VennDiagramMain;
+package Controller;
 
 import javafx.event.ActionEvent;
 import java.net.URL;
@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 
+import Model.AccessToLogin;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;

@@ -1,4 +1,4 @@
-package test.java.VennDiagramMain;
+package Main;
 
 import java.io.IOException;
 import javafx.application.Application;
@@ -26,7 +26,7 @@ public class VennDiagramWindow extends Application {
 	private void VennDiagramWindowView() throws IOException {
 
 		this.loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/views/VennDiagramWindowView.fxml"));
+		loader.setLocation(getClass().getResource("/View/VennDiagramWindowView.fxml"));
 		this.mainLayout = (AnchorPane) loader.load();
 	}
 

@@ -1,4 +1,4 @@
-package main.java.VennDiagramMain;
+package Test;
 
 import static org.junit.Assert.*;
 
@@ -9,6 +9,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
+
+import Controller.VennDiagramWindowController;
+import Main.VennDiagramWindowMain;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -85,12 +88,12 @@ public class VennDiagramWindowTester extends ApplicationTest {
 		System.setProperty("prism.text", "t2k");
 		System.setProperty("java.awt.headless", "true");
 
-		ApplicationTest.launch(VennDiagramWindowMain.class);
+		ApplicationTest.launch(Main.VennDiagramWindowMain.class);
 	}
 
 	/* This operation comes from ApplicationTest and loads the GUI to test. */
 	public void start(Stage primaryStage) throws IOException {
-		Parent VennDiagramWindow = FXMLLoader.load(getClass().getResource("VennDiagramWindowView.fxml"));
+		Parent VennDiagramWindow = FXMLLoader.load(getClass().getResource("/View/VennDiagramWindowView.fxml"));
 		primaryStage.setScene(new Scene(VennDiagramWindow));
 		primaryStage.show();
 		primaryStage.toFront();
