@@ -43,6 +43,7 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.StackPane;
@@ -73,6 +74,9 @@ public class VennDiagramWindowController implements Initializable {
 	@FXML
 	public Button entryButton, title1Button, title2Button, change1Button, change2Button, exportButton, importButton, clearButton;
 
+	@FXML
+	public ImageView image;
+	
 	private static int ylevel = -150;
 	private static final int xlevel = 30;
 	double orgSceneX, orgSceneY;

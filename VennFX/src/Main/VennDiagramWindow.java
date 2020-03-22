@@ -3,8 +3,13 @@ package Main;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class VennDiagramWindow extends Application {
@@ -28,6 +33,7 @@ public class VennDiagramWindow extends Application {
 		this.loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/View/VennDiagramWindowView.fxml"));
 		this.mainLayout = (AnchorPane) loader.load();
+		this.mainLayout.setBackground(new Background(new BackgroundFill(Color.DARKGREY, CornerRadii.EMPTY, Insets.EMPTY)));
 	}
 
 	public static void main(String[] args) {
