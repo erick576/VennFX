@@ -1,4 +1,4 @@
-package VennDiagramMain;
+package model;
 
 public interface Operation {
 

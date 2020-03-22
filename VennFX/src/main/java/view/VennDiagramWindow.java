@@ -1,4 +1,4 @@
-package VennDiagramMain;
+package view;
 
 import java.io.IOException;
 import javafx.application.Application;
@@ -20,13 +20,13 @@ public class VennDiagramWindow extends Application {
 		Scene scene = new Scene(this.mainLayout);
 		VennDiagramWindow.primaryStage.setScene(scene);
 		VennDiagramWindow.primaryStage.show();
-		VennDiagramWindow.primaryStage.show();
 	}
 
 	private void VennDiagramWindowView() throws IOException {
 
 		this.loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/views/VennDiagramWindowView.fxml"));
+//		System.out.println(getClass().getResource("../view"));
+		loader.setLocation(getClass().getResource("/VennDiagramWindowView.fxml"));
 		this.mainLayout = (AnchorPane) loader.load();
 	}
 

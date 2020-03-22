@@ -1,5 +1,6 @@
-package VennDiagramMain;
+package model;
 
+import controller.VennDiagramWindowController;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 

@@ -1,5 +1,6 @@
-package VennDiagramMain;
+package model;
 
+import controller.VennDiagramWindowController;
 import javafx.scene.control.TextField;
 
 public class TextRemovedOperation implements Operation  {

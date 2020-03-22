@@ -1,96 +1,99 @@
-package VennDiagramMain;
-
-import static org.junit.Assert.*;
-
-import java.io.IOException;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.testfx.api.FxToolkit;
-import org.testfx.framework.junit.ApplicationTest;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseButton;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
-
-public class VennDiagramWindowTester extends ApplicationTest {
-
-	@FXML
-	public Text filler, filler2;
-
-	@FXML
-	public ColorPicker color1;
-
-	@FXML
-	public ColorPicker color2;
-
-	@FXML
-	public TextField textField;
-
-	@FXML
-	public TextField title1;
-
-	@FXML
-	public TextField title2;
-
-	@FXML
-	public StackPane stackPane;
-
-	@FXML
-	public Circle circle1;
-
-	@FXML
-	public Circle circle2;
-
-	@FXML
-	public Button entryButton;
-
-	@FXML
-	public Button title1Button;
-
-	@FXML
-	public Button title2Button;
-
-	@FXML
-	public Button change1Button;
-
-	@FXML
-	public Button change2Button;
-
-	@FXML
-	public Button exportButton;
-
-	@FXML
-	public Button clearButton;
-
-	VennDiagramWindowController controller;
-
-	@Before
-	public void setUpClass() throws Exception {
-		System.setProperty("testfx.robot", "glass");
-		System.setProperty("testfx.headless", "true");
-		System.setProperty("prism.order", "sw");
-		System.setProperty("prism.text", "t2k");
-		System.setProperty("java.awt.headless", "true");
-
-		ApplicationTest.launch(VennDiagramWindowMain.class);
-	}
+//package VennDiagramMain;
+//
+//import static org.junit.Assert.*;
+//
+//import java.io.IOException;
+//
+//import org.junit.After;
+//import org.junit.Before;
+//import org.junit.Test;
+//import org.testfx.api.FxToolkit;
+//import org.testfx.framework.junit.ApplicationTest;
+//
+//import controller.VennDiagramWindowController;
+//import view.VennDiagramWindowMain;
+//import javafx.fxml.FXML;
+//import javafx.fxml.FXMLLoader;
+//import javafx.scene.Node;
+//import javafx.scene.Parent;
+//import javafx.scene.Scene;
+//import javafx.scene.control.Button;
+//import javafx.scene.control.ColorPicker;
+//import javafx.scene.control.TextField;
+//import javafx.scene.input.KeyCode;
+//import javafx.scene.input.MouseButton;
+//import javafx.scene.layout.StackPane;
+//import javafx.scene.paint.Color;
+//import javafx.scene.shape.Circle;
+//import javafx.scene.text.Text;
+//import javafx.stage.Stage;
+//
+//public class VennDiagramWindowTester extends ApplicationTest {
+//
+//	@FXML
+//	public Text filler, filler2;
+//
+//	@FXML
+//	public ColorPicker color1;
+//
+//	@FXML
+//	public ColorPicker color2;
+//
+//	@FXML
+//	public TextField textField;
+//
+//	@FXML
+//	public TextField title1;
+//
+//	@FXML
+//	public TextField title2;
+//
+//	@FXML
+//	public StackPane stackPane;
+//
+//	@FXML
+//	public Circle circle1;
+//
+//	@FXML
+//	public Circle circle2;
+//
+//	@FXML
+//	public Button entryButton;
+//
+//	@FXML
+//	public Button title1Button;
+//
+//	@FXML
+//	public Button title2Button;
+//
+//	@FXML
+//	public Button change1Button;
+//
+//	@FXML
+//	public Button change2Button;
+//
+//	@FXML
+//	public Button exportButton;
+//
+//	@FXML
+//	public Button clearButton;
+//
+//	VennDiagramWindowController controller;
+//
+//	@Before
+//	public void setUpClass() throws Exception {
+//		System.setProperty("testfx.robot", "glass");
+//		System.setProperty("testfx.headless", "true");
+//		System.setProperty("prism.order", "sw");
+//		System.setProperty("prism.text", "t2k");
+//		System.setProperty("java.awt.headless", "true");
+//
+//		ApplicationTest.launch(view.VennDiagramWindowMain.class);
+//	}
 //
 //	/* This operation comes from ApplicationTest and loads the GUI to test. */
 //	public void start(Stage primaryStage) throws IOException {
-//		Parent VennDiagramWindow = FXMLLoader.load(getClass().getResource("VennDiagramWindowView.fxml"));
+//		Parent VennDiagramWindow = FXMLLoader.load(getClass().getResource("/VennDiagramWindowView.fxml"));
 //		primaryStage.setScene(new Scene(VennDiagramWindow));
 //		primaryStage.show();
 //		primaryStage.toFront();
@@ -282,6 +285,10 @@ public class VennDiagramWindowTester extends ApplicationTest {
 //		type(KeyCode.ENTER);
 //		assertEquals(textField.getText(), "");
 //	}
-	
-
-}
+//	
+//	@Test
+//	public void UndoRedoTester() throws InterruptedException {
+//		
+//	}
+//
+//}
