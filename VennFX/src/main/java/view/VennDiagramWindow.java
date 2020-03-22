@@ -1,5 +1,6 @@
 package view;
 
+import java.io.File;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +11,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class VennDiagramWindow extends Application {
@@ -28,10 +30,10 @@ public class VennDiagramWindow extends Application {
 
 		VennDiagramWindow.primaryStage.sizeToScene();
 		VennDiagramWindow.primaryStage.setTitle(APP_TITLE);
-
+		VennDiagramWindow.primaryStage.getIcons().add(new Image("/VennFX_Logo.png"));
 		VennDiagramWindow.primaryStage.setMinWidth(primaryStage.getWidth());
 		VennDiagramWindow.primaryStage.setMinHeight(primaryStage.getHeight());
-
+		
 		VennDiagramWindow.primaryStage.show();
 //
 //		VennDiagramWindow.primaryStage.setMaximized(true);

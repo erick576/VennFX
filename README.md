@@ -1,8 +1,14 @@
-# SoftwareDevelopmentProject
-EECS2311 Software Development Project (Winter 2020)
+<p align="center">
+  <img src="./VennFX/src/main/resources/VennFX_Logo.png" alt="VennFX"/>
+  <h1>VennFX</h1>
+  <h2>EECS2311 Software Development Project (Winter 2020)</h2>
+</p>
 
 ![Build Status](https://img.shields.io/circleci/build/github/EECS2311-Team8/SoftwareDevelopmentProject/master?style=flat-square)
-
+![Repo Size](https://img.shields.io/github/repo-size/EECS2311-Team8/SoftwareDevelopmentProject?style=flat-square)
+![Downloads](https://img.shields.io/github/downloads/EECS2311-Team8/SoftwareDevelopmentProject/total?style=flat-square)
+![License](https://img.shields.io/github/license/EECS2311-Team8/SoftwareDevelopmentProject?style=flat-square)
+![Latest Release](https://img.shields.io/github/v/release/EECS2311-Team8/SoftwareDevelopmentProject?style=flat-square)
 
 ## Run Instructions
 ### Latest Release
