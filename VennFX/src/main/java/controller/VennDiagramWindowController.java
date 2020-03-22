@@ -389,7 +389,6 @@ public class VennDiagramWindowController implements Initializable {
 			FileOutputStream doc = new FileOutputStream(file.getPath());
 			workbook.write(doc);
 			doc.close();
-			workbook.close();
 			JOptionPane.showMessageDialog(null, "Entries Saved!");
 
 		} catch (InvalidFileException e) {
