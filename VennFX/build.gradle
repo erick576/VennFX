@@ -15,7 +15,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 
 
-mainClassName = 'VennDiagramMain.VennDiagramWindowMain'
+mainClassName = 'view.VennDiagramWindow'
 
 
 sourceCompatibility = 1.8

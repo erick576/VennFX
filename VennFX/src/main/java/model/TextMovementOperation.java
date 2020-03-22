@@ -1,5 +1,6 @@
-package VennDiagramMain;
+package model;
 
+import controller.VennDiagramWindowController;
 import javafx.scene.control.TextField;
 
 public class TextMovementOperation implements Operation {
@@ -22,7 +23,6 @@ public class TextMovementOperation implements Operation {
 
 	@Override
 	public void executeRedo() {
-		// TODO Auto-generated method stub
 		controller.setMovement(entry, coordinateX, coordinateY);
 	}
 

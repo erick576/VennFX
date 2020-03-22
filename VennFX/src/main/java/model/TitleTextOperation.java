@@ -1,4 +1,6 @@
-package VennDiagramMain;
+package model;
+
+import controller.VennDiagramWindowController;
 
 public class TitleTextOperation  implements Operation {
 

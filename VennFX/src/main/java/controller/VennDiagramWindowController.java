@@ -1,10 +1,13 @@
-package VennDiagramMain;
+package controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.net.URL;
+
 import java.util.ArrayList;
 import java.util.EmptyStackException;
+import java.util.Iterator;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Stack;
 
@@ -15,10 +18,14 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import model.*;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,6 +34,8 @@ import javafx.geometry.Point2D;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -59,9 +68,10 @@ public class VennDiagramWindowController implements Initializable {
 	public Circle circle2;
 
 	@FXML
-	public Button entryButton, title1Button, title2Button, change1Button, change2Button, exportButton, importButton,
-			clearButton;
+	public Button entryButton, title1Button, title2Button, change1Button, change2Button, exportButton, importButton, clearButton;
 
+	private static int ylevel = -150;
+	private static final int xlevel = 30;
 	double orgSceneX, orgSceneY;
 	double orgTranslateX, orgTranslateY;
 	public static ArrayList<String> entriesAB = new ArrayList<>();
@@ -108,6 +118,12 @@ public class VennDiagramWindowController implements Initializable {
 			entry.setVisible(true);
 			entry.setEditable(false);
 			entry.resizeRelocate(circle1.getCenterX(), circle1.getCenterY(), 1, 1);
+			entry.setTranslateY(ylevel);
+			entry.setTranslateX(xlevel);
+			ylevel = ylevel + 15;
+			if(ylevel > 225) {
+				ylevel = -150;
+			}
 			entry.resize(50, 50);
 			entry.setMinWidth(30);
 			entry.setPrefWidth(30);
@@ -266,6 +282,7 @@ public class VennDiagramWindowController implements Initializable {
 		}
 	}
 
+	// Change Color on Circle1
 	public void color1(ActionEvent event) {
 		try {
 			Color selectedColor = color1.getValue();
@@ -277,6 +294,7 @@ public class VennDiagramWindowController implements Initializable {
 		}
 	}
 
+	// Change Color on Circle2
 	public void color2(ActionEvent event) {
 		try {
 			Color selectedColor = color2.getValue();
@@ -292,8 +310,7 @@ public class VennDiagramWindowController implements Initializable {
 	public void exportButton(ActionEvent event) throws InvalidFileException {
 		try {
 
-			// Putting the entries in the App into their respective sides based on their
-			// position
+			// Putting the entries in the Application into their respective sides based on their position
 			for (TextField entry : entries) {
 				Point2D leftCenter = circle1.localToParent(circle1.getCenterX(), circle1.getCenterY());
 				Point2D rightCenter = circle2.localToParent(circle2.getCenterX(), circle2.getCenterY());
@@ -369,7 +386,6 @@ public class VennDiagramWindowController implements Initializable {
 			FileOutputStream doc = new FileOutputStream(file.getPath());
 			workbook.write(doc);
 			doc.close();
-			workbook.close();
 			JOptionPane.showMessageDialog(null, "Entries Saved!");
 
 		} catch (InvalidFileException e) {
@@ -383,44 +399,94 @@ public class VennDiagramWindowController implements Initializable {
 		entriesB.clear();
 	}
 
-//	// Import Button Function
-//	public void importButton(ActionEvent event) throws InvalidFileException {
-//		try {
-//			JFileChooser fileChooser = new JFileChooser();
-//			fileChooser.setDialogTitle("Save the file");
-//			FileFilter filter = new FileNameExtensionFilter("Files", ".xlsx");
-//			fileChooser.setAcceptAllFileFilterUsed(false);
-//			fileChooser.addChoosableFileFilter(filter);
-//			fileChooser.setSelectedFile(new File(fileDictName));
-//			fileChooser.setVisible(true);
-//			JFileChooser jfc = new JFileChooser();
-//			final JFrame frame = new JFrame();
-//			int res = jfc.showSaveDialog(frame);
-//			File file = jfc.getSelectedFile();
-//			if (res != JFileChooser.APPROVE_OPTION) {
-//				return;
-//			}
-//			
-//			if (!file.getName().subSequence(file.getName().length() - 5, file.getName().length()).equals(".xlsx")) {
-//				throw new InvalidFileException("");
-//			}
-//			
-//			
-//			
-//		} catch (InvalidFileException e) {
-//			JOptionPane.showMessageDialog(null, "Invalid File!");
-//		} catch (Exception e) {
-//			JOptionPane.showMessageDialog(null, "No Entries!");
-//		}
-//	}
+    // Import Button Function
+	public void importButton(ActionEvent event) throws InvalidFileException {
+		try {
+			JFileChooser fileChooser = new JFileChooser();
+			fileChooser.setDialogTitle("Save the file");
+			FileFilter filter = new FileNameExtensionFilter("Files", ".xlsx");
+			fileChooser.setAcceptAllFileFilterUsed(false);
+			fileChooser.addChoosableFileFilter(filter);
+			fileChooser.setSelectedFile(new File(fileDictName));
+			fileChooser.setVisible(true);
+			JFileChooser jfc = new JFileChooser();
+			final JFrame frame = new JFrame();
+			int res = jfc.showSaveDialog(frame);
+			File file = jfc.getSelectedFile();
+			if (res != JFileChooser.APPROVE_OPTION) {
+				return;
+			}
+			
+			if (!file.getName().subSequence(file.getName().length() - 5, file.getName().length()).equals(".xlsx")) {
+				throw new InvalidFileException("");
+			}
 
-	// Clear Button Function
+			if (importWarning()) {
+				for(TextField entry: entries) {
+					entry.setVisible(false);
+				}
+				entries.clear();
+				ylevel = -150;
+				Workbook wb = WorkbookFactory.create(new File(file.getName()));
+				Sheet s = wb.getSheetAt(0);
+				DataFormatter dataFormatter = new DataFormatter();
+				int times = 0;
+				int count = 1;
+				int nonRow = 0;
+				Iterator<Row> rowIterator = s.rowIterator();
+				while (rowIterator.hasNext()) {
+					Row row = rowIterator.next();
+
+					Iterator<Cell> cellIterator = row.cellIterator();
+
+					while (cellIterator.hasNext()) {
+						Cell cell = cellIterator.next();
+						String cellValue = dataFormatter.formatCellValue(cell);
+						if (count == 1 && !cellValue.contentEquals("Left Side") && times == 0) {
+							title1.setText(cellValue);
+							Operation c = new TitleTextOperation(this, title1.getText(), "", 1);
+							undo.push(c);
+						}
+						if (count == 2 && !cellValue.contentEquals("Right Side") && times == 1) {
+							title2.setText(cellValue);
+							Operation c = new TitleTextOperation(this, title2.getText(), "", 2);
+							undo.push(c);
+						}
+						if (count == 1 && nonRow == 1) {
+							textField.setText(cellValue);
+							entryButton(new ActionEvent());			
+						}
+						if (count == 2 && nonRow == 1) {
+							textField.setText(cellValue);
+							entryButton(new ActionEvent());
+						}
+						if (count == 3 && nonRow == 1) {
+							textField.setText(cellValue);
+							entryButton(new ActionEvent());
+						}
+						times ++;
+						count++;
+					}
+				nonRow = 1;
+	            count = 1;
+	        }
+			}
+			  
+			
+		} catch (InvalidFileException e) {
+			JOptionPane.showMessageDialog(null, "Invalid File!");
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "No Entries!");
+		}
+	}
+
 	public void clearButton(ActionEvent event) {
 		try {
 			if (entries.size() == 0 && title1.getText().contentEquals("") && title2.getText().contentEquals("")
 					&& circle1.getFill().equals(Color.TRANSPARENT) && circle2.getFill().equals(Color.TRANSPARENT)) {
 				throw new Exception();
 			}
+			if(isClear()) {
 			for (TextField entry : entries) {
 				entry.setVisible(false);
 			}
@@ -431,15 +497,41 @@ public class VennDiagramWindowController implements Initializable {
 			title2.setEditable(true);
 			circle1.setFill(Color.TRANSPARENT);
 			circle2.setFill(Color.TRANSPARENT);
-			undo.clear();
-			redo.clear();
-			circle1.setFill(Color.TRANSPARENT);
-			circle2.setFill(Color.TRANSPARENT);
-
+			ylevel = -150;
+		}
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Is Already Empty");
 		}
+	}
 
+	private boolean importWarning() {
+		boolean clear = false;
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("WARNING");
+		alert.setHeaderText("Importing will clear all your previous changes");
+		alert.setContentText("You will not be able to undo your changes!");
+		ButtonType cancelButtonType = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+		alert.getDialogPane().getButtonTypes().add(cancelButtonType);
+		Optional<ButtonType> result = alert.showAndWait();
+		if(result.isPresent() && result.get() == ButtonType.OK) {
+			clear = true;
+		}
+		return clear;
+	}
+	
+	private boolean isClear() {
+		boolean clear = false;
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Clear all");
+		alert.setHeaderText("Are you sure you want to clear all entries?");
+		alert.setContentText("You will not be able to undo your changes!");
+		ButtonType cancelButtonType = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+		alert.getDialogPane().getButtonTypes().add(cancelButtonType);
+		Optional<ButtonType> result = alert.showAndWait();
+		if(result.isPresent() && result.get() == ButtonType.OK) {
+			clear = true;
+		}
+		return clear;
 	}
 
 	// Undo Button Function
@@ -482,6 +574,7 @@ public class VennDiagramWindowController implements Initializable {
 		}
 	}
 
+	// Color Function for Redo Button
 	public void setColorRedo(Circle circle, Color color, Color prev) {
 		if (circle1.equals(circle) && circle1.getFill().equals(Color.TRANSPARENT)) {
 			circle1.setFill(color);
@@ -495,6 +588,7 @@ public class VennDiagramWindowController implements Initializable {
 		}
 	}
 
+	// Color Function for Undo Button
 	public void setColorUndo(Circle circle, Color color, Color prev) {
 		if (circle1.equals(circle) && circle1.getFill().equals(Color.TRANSPARENT)) {
 			circle1.setFill(color);
@@ -507,6 +601,7 @@ public class VennDiagramWindowController implements Initializable {
 		}
 	}
 
+	// Title Function for Undo And Redo Button
 	public void setTitle(String title, String prev, int side) {
 		if (side == 1 && !title1.getText().equals("")) {
 			title1.setEditable(true);
@@ -523,29 +618,51 @@ public class VennDiagramWindowController implements Initializable {
 		}
 	}
 
+	// Entry Function for Redo Button
 	public void setEntryRedo(TextField entry) {
 		entry.setVisible(true);
 		entries.add(entry);
+		ylevel = ylevel + 15;
+		if (ylevel > 225) {
+			ylevel = -150;
+		}
 	}
 
+	// Entry Function for Undo Button
 	public void setEntryUndo(TextField entry) {
 		entry.setVisible(false);
 		entries.remove(entry);
+		ylevel = ylevel - 15;
+		if (ylevel < -150) {
+			ylevel = -150;
+		}
 	}
 
+	// Drag Function for Undo and Redo Button
 	public void setMovement(TextField entry, double coordinateX, double coordinateY) {
 		entry.setTranslateX(coordinateX);
 		entry.setTranslateY(coordinateY);
 	}
 
+	
+	// Remove Entry Function for Undo Button
 	public void removedEntryUndo(TextField entry) {
 		entry.setVisible(true);
 		entries.add(entry);
+		ylevel = ylevel + 15;
+		if (ylevel > 225) {
+			ylevel = -150;
+		}
 	}
 
+	// Remove Entry Function for Redo Button
 	public void removedEntryRedo(TextField entry) {
 		entry.setVisible(false);
 		entries.remove(entry);
+		ylevel = ylevel - 15;
+		if (ylevel < -150) {
+			ylevel = -150;
+		}
 	}
 
 }
