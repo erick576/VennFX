@@ -28,8 +28,8 @@ public class VennDiagramWindow extends Application {
 		VennDiagramWindow.primaryStage.setMinHeight(primaryStage.getHeight());
 
 		VennDiagramWindow.primaryStage.show();
-
-		VennDiagramWindow.primaryStage.setMaximized(true);
+//
+//		VennDiagramWindow.primaryStage.setMaximized(true);
 
 	}
 
