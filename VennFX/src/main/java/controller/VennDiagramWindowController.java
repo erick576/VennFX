@@ -3,6 +3,7 @@ package controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.net.URL;
+
 import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.Iterator;
@@ -24,12 +25,8 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import model.ColorOperation;
-import model.Operation;
-import model.TextCreationOperation;
-import model.TextMovementOperation;
-import model.TextRemovedOperation;
-import model.TitleTextOperation;
+import model.*;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

@@ -8,10 +8,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class VennDiagramWindow extends Application {
-
+	
 	private AnchorPane mainLayout;
 	public static Stage primaryStage;
 	private FXMLLoader loader;
+	public static final String APP_TITLE = "VennFX";
 
 	@Override
 	public void start(Stage primaryStage) throws IOException {
@@ -19,7 +20,17 @@ public class VennDiagramWindow extends Application {
 		VennDiagramWindowView();
 		Scene scene = new Scene(this.mainLayout);
 		VennDiagramWindow.primaryStage.setScene(scene);
+
+		VennDiagramWindow.primaryStage.sizeToScene();
+		VennDiagramWindow.primaryStage.setTitle(APP_TITLE);
+
+		VennDiagramWindow.primaryStage.setMinWidth(primaryStage.getWidth());
+		VennDiagramWindow.primaryStage.setMinHeight(primaryStage.getHeight());
+
 		VennDiagramWindow.primaryStage.show();
+
+		VennDiagramWindow.primaryStage.setMaximized(true);
+
 	}
 
 	private void VennDiagramWindowView() throws IOException {
