@@ -69,6 +69,10 @@ public class GameModeController implements Initializable {
 		title1.setEditable(false);
 		title2.setEditable(false);
 
+		entriesA.clear();
+		entriesB.clear();
+		entriesAB.clear();
+		
 		String[] entries = new String[] { "Apple", "Brussels Sprout", "Sweet Potato", "Grapefruit", "Pumpkin", "Lime",
 				"Nectarine", "Apricot", "Lettuce", "Plum", "Celery", "Mango", "Cucumber", "Cabbage", "Blueberry",
 				"Onion", "Cauliflower", "Watermelon", "Rockmelon", "Asparagus", "Melon", "Tomato", "Avocado", "Peach",
