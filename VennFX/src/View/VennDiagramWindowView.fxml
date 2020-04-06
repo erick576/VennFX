@@ -81,6 +81,11 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
+            <Button fx:id="gameModeButton" layoutX="1133.0" layoutY="445.0" mnemonicParsing="false" onAction="#gameModeButton" prefHeight="43.0" prefWidth="119.0" text="Game Mode">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
          </children>
          <effect>
             <Glow />
