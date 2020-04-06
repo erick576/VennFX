@@ -72,6 +72,7 @@ public class GameModeController implements Initializable {
 		entriesA.clear();
 		entriesB.clear();
 		entriesAB.clear();
+		entries.clear();
 		
 		String[] entries = new String[] { "Apple", "Brussels Sprout", "Sweet Potato", "Grapefruit", "Pumpkin", "Lime",
 				"Nectarine", "Apricot", "Lettuce", "Plum", "Celery", "Mango", "Cucumber", "Cabbage", "Blueberry",
