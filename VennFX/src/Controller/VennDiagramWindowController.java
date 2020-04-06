@@ -152,7 +152,8 @@ public class VennDiagramWindowController implements Initializable {
 			MenuItem item1 = new MenuItem("Delete");
 			MenuItem item2 = new MenuItem("Edit");
 			MenuItem item3 = new MenuItem("Lock");
-			context.getItems().addAll(item1, item2, item3);
+			MenuItem item4 = new MenuItem("Look");
+			context.getItems().addAll(item1, item2, item3, item4);
 			entry.setContextMenu(context);
 			item1.setOnAction(e -> {
 				entries.remove(entry);
@@ -161,6 +162,7 @@ public class VennDiagramWindowController implements Initializable {
 			});
 			item2.setOnAction(e -> entry.setEditable(true));
 			item3.setOnAction(e -> entry.setEditable(false));
+			item4.setOnAction(e -> JOptionPane.showMessageDialog(null, entry.getText()));
 
 			// Drag and Drop Functionality
 			entry.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
