@@ -1,0 +1,13 @@
+title Add Textbox
+
+participant User
+participant VennDiagramWindow
+participant VennDiagramWindowController
+participant TextCreationOperation
+
+User->VennDiagramWindow:create textbox (ActionEvent)
+
+VennDiagramWindow->VennDiagramWindowController:create textbox (ActionEvent)
+VennDiagramWindowController->TextCreationOperation:create textbox (ActionEvent)
+TextCreationOperation->VennDiagramWindowController:setEntry (text)
+VennDiagramWindow<-VennDiagramWindowController:display newly created textbox
