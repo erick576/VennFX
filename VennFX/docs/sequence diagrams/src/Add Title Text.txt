@@ -1,0 +1,14 @@
+title Add Title Text
+
+participant User
+participant VennDiagramWindow
+participant VennDiagramWindowController
+participant TitleTextOperation
+
+User->VennDiagramWindow: enter (titleText)
+VennDiagramWindow->VennDiagramWindowController: enter (titleText)
+VennDiagramWindowController->TitleTextOperation: String (title)
+TitleTextOperation->VennDiagramWindowController: setTitle (titleText)
+VennDiagramWindowController->VennDiagramWindow: Title Set
+
+

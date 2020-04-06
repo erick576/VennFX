@@ -1,0 +1,16 @@
+title Textbox Drag-and-Drop
+
+participant User
+participant VennDiagramWindow
+participant VennDiagramWindowController
+participant TextMovementOperation
+
+User->VennDiagramWindow:create textbox (ActionEvent)
+
+VennDiagramWindow->VennDiagramWindowController:create textbox (ActionEvent)
+VennDiagramWindow<-VennDiagramWindowController:display newly created textbox
+User->VennDiagramWindow:click-and-drag textbox (ActionEvent)
+VennDiagramWindow->VennDiagramWindowController:click-and-drag textbox (ActionEvent)
+VennDiagramWindowController->TextMovementOperation:click-and-drag textbox (ActionEvent)
+VennDiagramWindowController<-TextMovementOperation:setMovement(textbox,xCoord,yCoord)
+VennDiagramWindow<-VennDiagramWindowController:textbox moved

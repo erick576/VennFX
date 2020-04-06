@@ -1,0 +1,15 @@
+title Change Circle Colour
+
+participant User
+participant VennDiagramWindow
+participant VennDiagramWindowController
+participant ColorOperation
+
+User->VennDiagramWindow: click and choose (color)
+VennDiagramWindow->VennDiagramWindowController: change (color)
+
+
+
+VennDiagramWindowController->ColorOperation:setColor (circle, color)
+VennDiagramWindowController<-ColorOperation:Color Set
+VennDiagramWindow<-VennDiagramWindowController:Display Color on Circle

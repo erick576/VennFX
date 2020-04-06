@@ -2,8 +2,8 @@ package controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
-
 import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.Iterator;
@@ -25,12 +25,19 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import model.*;
-
+import model.ColorOperation;
+import model.Operation;
+import model.TextCreationOperation;
+import model.TextMovementOperation;
+import model.TextRemovedOperation;
+import model.TitleTextOperation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -40,12 +47,14 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class VennDiagramWindowController implements Initializable {
 
@@ -70,6 +79,9 @@ public class VennDiagramWindowController implements Initializable {
 	@FXML
 	public Button entryButton, title1Button, title2Button, change1Button, change2Button, exportButton, importButton, clearButton;
 
+	@FXML
+	public ImageView image;
+	
 	private static int ylevel = -150;
 	private static final int xlevel = 30;
 	double orgSceneX, orgSceneY;
@@ -140,7 +152,8 @@ public class VennDiagramWindowController implements Initializable {
 			MenuItem item1 = new MenuItem("Delete");
 			MenuItem item2 = new MenuItem("Edit");
 			MenuItem item3 = new MenuItem("Lock");
-			context.getItems().addAll(item1, item2, item3);
+			MenuItem item4 = new MenuItem("Look");
+			context.getItems().addAll(item1, item2, item3, item4);
 			entry.setContextMenu(context);
 			item1.setOnAction(e -> {
 				entries.remove(entry);
@@ -149,6 +162,7 @@ public class VennDiagramWindowController implements Initializable {
 			});
 			item2.setOnAction(e -> entry.setEditable(true));
 			item3.setOnAction(e -> entry.setEditable(false));
+			item4.setOnAction(e -> JOptionPane.showMessageDialog(null, entry.getText()));
 
 			// Drag and Drop Functionality
 			entry.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
@@ -386,6 +400,7 @@ public class VennDiagramWindowController implements Initializable {
 			FileOutputStream doc = new FileOutputStream(file.getPath());
 			workbook.write(doc);
 			doc.close();
+			workbook.close();
 			JOptionPane.showMessageDialog(null, "Entries Saved!");
 
 		} catch (InvalidFileException e) {
@@ -532,6 +547,21 @@ public class VennDiagramWindowController implements Initializable {
 			clear = true;
 		}
 		return clear;
+	}
+	
+	// Game Mode Button
+	Parent part;
+	public void gameModeButton(ActionEvent event) {
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GameMode.fxml"));
+			part = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
+			Scene scene = new Scene(part);
+			stage.setScene(scene);
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	// Undo Button Function
