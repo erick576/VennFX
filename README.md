@@ -26,9 +26,11 @@
 
 ## Important Folders
 
-Documentation: Contains all documents (e.g. user manual)
+[Documentation](https://github.com/EECS2311-Team8/SoftwareDevelopmentProject/tree/master/Documentation): Contains all documents (e.g. user manual)
 
 VennFX: Contains the application source code
+
+NOTE**: **Please Read the User Manual If Not Sure How To Use Any Function In The Applicaton**
 
 ### Group Members
 [Reuben Ninan](https://github.com/ReubenMathew) 216315509 
