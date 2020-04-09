@@ -35,7 +35,8 @@ public class VennDiagramWindow extends Application {
 		VennDiagramWindow.primaryStage.setMinHeight(primaryStage.getHeight());
 		
 		VennDiagramWindow.primaryStage.show();
-//
+		VennDiagramWindow.primaryStage.setMaximized(true);
+
 //		VennDiagramWindow.primaryStage.setMaximized(true);
 
 	}
@@ -47,6 +48,7 @@ public class VennDiagramWindow extends Application {
 		loader.setLocation(getClass().getResource("/VennDiagramWindowView.fxml"));
 		this.mainLayout = (AnchorPane) loader.load();
 		this.mainLayout.setBackground(new Background(new BackgroundFill(Color.DARKGREY, CornerRadii.EMPTY, Insets.EMPTY)));
+
 	}
 
 	public static void main(String[] args) {
