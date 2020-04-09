@@ -1,5 +1,7 @@
 package view;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
 import javafx.application.Application;
@@ -11,6 +13,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
+import javafx.scene.transform.Scale;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -35,11 +38,11 @@ public class VennDiagramWindow extends Application {
 		VennDiagramWindow.primaryStage.setMinHeight(primaryStage.getHeight());
 		
 		VennDiagramWindow.primaryStage.show();
-//
-//		VennDiagramWindow.primaryStage.setMaximized(true);
+
+		VennDiagramWindow.primaryStage.setMaximized(true);
 
 	}
-
+	
 	private void VennDiagramWindowView() throws IOException {
 
 		this.loader = new FXMLLoader();
@@ -47,6 +50,14 @@ public class VennDiagramWindow extends Application {
 		loader.setLocation(getClass().getResource("/VennDiagramWindowView.fxml"));
 		this.mainLayout = (AnchorPane) loader.load();
 		this.mainLayout.setBackground(new Background(new BackgroundFill(Color.DARKGREY, CornerRadii.EMPTY, Insets.EMPTY)));
+
+//		Dimension resolution = Toolkit.getDefaultToolkit().getScreenSize();
+//		double width = resolution.getWidth();
+//		double height = resolution.getHeight(); 
+//		double w = width/2000;  // your window width
+//		double h = height/1200;  // your window height
+//		Scale scale = new Scale(w, h, 0, 0);
+//		this.mainLayout.getTransforms().add(scale);
 	}
 
 	public static void main(String[] args) {

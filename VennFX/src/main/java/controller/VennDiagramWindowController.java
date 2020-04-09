@@ -82,6 +82,7 @@ public class VennDiagramWindowController implements Initializable {
 	@FXML
 	public ImageView image;
 	
+	
 	private static int ylevel = -150;
 	private static final int xlevel = 30;
 	double orgSceneX, orgSceneY;
@@ -163,7 +164,8 @@ public class VennDiagramWindowController implements Initializable {
 			item2.setOnAction(e -> entry.setEditable(true));
 			item3.setOnAction(e -> entry.setEditable(false));
 			item4.setOnAction(e -> JOptionPane.showMessageDialog(null, entry.getText()));
-
+		
+			
 			// Drag and Drop Functionality
 			entry.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
 
