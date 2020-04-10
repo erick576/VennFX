@@ -7,6 +7,7 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
@@ -15,6 +16,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Scale;
 import javafx.scene.image.Image;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class VennDiagramWindow extends Application {
@@ -38,15 +40,17 @@ public class VennDiagramWindow extends Application {
 		VennDiagramWindow.primaryStage.setMinHeight(primaryStage.getHeight());
 		
 		VennDiagramWindow.primaryStage.show();
-
+	
 		VennDiagramWindow.primaryStage.setMaximized(true);
 
+//        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+//        VennDiagramWindow.primaryStage.setX((primScreenBounds.getWidth() - VennDiagramWindow.primaryStage.getWidth()) / 2); 
+//        VennDiagramWindow.primaryStage.setY((primScreenBounds.getHeight() - VennDiagramWindow.primaryStage.getHeight()) / 4);    
 	}
 	
 	private void VennDiagramWindowView() throws IOException {
 
 		this.loader = new FXMLLoader();
-//		System.out.println(getClass().getResource("../view"));
 		loader.setLocation(getClass().getResource("/VennDiagramWindowView.fxml"));
 		this.mainLayout = (AnchorPane) loader.load();
 		this.mainLayout.setBackground(new Background(new BackgroundFill(Color.DARKGREY, CornerRadii.EMPTY, Insets.EMPTY)));
