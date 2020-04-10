@@ -26,6 +26,8 @@ public class VennDiagramWindow extends Application {
 		VennDiagramWindow.primaryStage.setScene(scene);
 		VennDiagramWindow.primaryStage.show();
 		VennDiagramWindow.primaryStage.show();
+		VennDiagramWindow.primaryStage.setMaximized(true);
+
 	}
 
 	private void VennDiagramWindowView() throws IOException {
