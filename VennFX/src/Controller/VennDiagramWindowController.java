@@ -130,13 +130,11 @@ public class VennDiagramWindowController implements Initializable {
 			entry.setVisible(true);
 			entry.setEditable(false);
 			entry.resizeRelocate(circle1.getCenterX(), circle1.getCenterY(), 1, 1);
-			if(entries.size() > 1) {
 			entry.setTranslateY(ylevel);
 			entry.setTranslateX(xlevel);
 			ylevel = ylevel + 15;
 			if(ylevel > 225) {
 				ylevel = -150;
-			}
 			}
 			entry.resize(50, 50);
 			entry.setMinWidth(30);
