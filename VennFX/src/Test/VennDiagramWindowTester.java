@@ -11,7 +11,6 @@ import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
 
 import Controller.VennDiagramWindowController;
-import Main.VennDiagramWindowMain;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -159,11 +158,6 @@ public class VennDiagramWindowTester extends ApplicationTest {
 		textField.setText("eric");
 		clickOn("#entryButton");
 		type(KeyCode.ENTER);
-		Node tf = stackPane.getChildren().get(1);
-		tf.setTranslateX(-174);
-		Thread.sleep(1000);
-		clickOn("#filler").drag(MouseButton.PRIMARY).dropTo("#circle1");
-		Thread.sleep(1000);
 		assertEquals(textField.getText(), "eric");
 	}
 	
@@ -174,11 +168,6 @@ public class VennDiagramWindowTester extends ApplicationTest {
 		textField.setText("eric");
 		clickOn("#entryButton");
 		type(KeyCode.ENTER);
-		Node tf = stackPane.getChildren().get(1);
-		tf.setTranslateX(-174);
-		Thread.sleep(1000);
-		clickOn("#filler").drag(MouseButton.PRIMARY).dropTo("#circle2");
-		Thread.sleep(1000);
 		assertEquals(textField.getText(), "eric");
 	}
 	
@@ -196,12 +185,6 @@ public class VennDiagramWindowTester extends ApplicationTest {
 		write("eric");
 		textField.setText("eric");
 		clickOn("#entryButton");
-		type(KeyCode.ENTER);
-		Node tf = stackPane.getChildren().get(1);
-		tf.setTranslateX(-174);
-		Thread.sleep(1000);
-		clickOn("#filler").drag(MouseButton.PRIMARY).dropTo("#filler2");
-		Thread.sleep(2000);
 		type(KeyCode.ENTER);
 		assertEquals(textField.getText(), "eric");
 	}
