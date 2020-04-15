@@ -10,6 +10,8 @@
 ![License](https://img.shields.io/github/license/EECS2311-Team8/SoftwareDevelopmentProject?style=flat-square)
 ![Latest Release](https://img.shields.io/github/v/release/EECS2311-Team8/SoftwareDevelopmentProject?style=flat-square)
 
+#### This Project is no longer actively maintained
+
 ## Run Instructions
 ### Latest Release
 1. Navigate to the latest release and download the included zip file (https://github.com/EECS2311-Team8/SoftwareDevelopmentProject/releases).
