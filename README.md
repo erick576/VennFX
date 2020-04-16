@@ -1,7 +1,6 @@
 <p align="center">
   <img src="./VennFX/src/main/resources/VennFX_Logo.png" alt="VennFX"/>
   <h1>VennFX</h1>
-  <h2>EECS2311 Software Development Project (Winter 2020)</h2>
 </p>
 
 ![Build Status](https://img.shields.io/circleci/build/github/EECS2311-Team8/SoftwareDevelopmentProject/master?style=flat-square)
