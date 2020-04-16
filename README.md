@@ -10,6 +10,9 @@
 ![Latest Release](https://img.shields.io/github/v/release/EECS2311-Team8/SoftwareDevelopmentProject?style=flat-square)
 
 #### This Project is no longer actively maintained
+<p align="center">
+  <img src="./Application.PNG" alt="VennFX"/>
+</p>
 
 ## Run Instructions
 ### Latest Release
