@@ -33,9 +33,3 @@
 VennFX: Contains the application source code
 
 NOTE**: **Please Read the User Manual If Not Sure How To Use Any Function In The Applicaton**
-
-### Group Members
-[Reuben Ninan](https://github.com/ReubenMathew) 216315509 
-[Edward Nwogwugwu](https://github.com/Breddie13) 215163520
-[Wenxuan Li](https://github.com/Li-wenxuan-216374324) 216374324
-[Eric Kwok](https://github.com/erick576) 216397150
