@@ -29,6 +29,6 @@
 
 [Documentation](https://github.com/EECS2311-Team8/SoftwareDevelopmentProject/tree/master/Documentation): Contains all documents (e.g. user manual)
 
-VennFX: Contains the application source code
+[VennFX](https://github.com/erick576/VennFX/tree/master/VennFX): Contains the application source code
 
 NOTE**: **Please Read the User Manual If Not Sure How To Use Any Function In The Applicaton**
