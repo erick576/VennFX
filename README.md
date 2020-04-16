@@ -1,5 +1,4 @@
 <p align="center">
-  <img src="./VennFX/src/main/resources/VennFX_Logo.png" alt="VennFX"/>
   <h1>VennFX</h1>
 </p>
 
