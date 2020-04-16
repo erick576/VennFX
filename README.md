@@ -14,7 +14,7 @@
 
 ## Run Instructions
 ### Latest Release
-1. Navigate to the latest release and download the included zip file (https://github.com/EECS2311-Team8/SoftwareDevelopmentProject/releases).
+1. Navigate to the latest release and download the included jar file (https://github.com/erick576/VennFX/releases).
 2. Run VennFX.jar with ``` java -jar VennFX.jar ```
 
 *For MacOS users, if you recieve and error ```"VennFX.jar" can't be opened because it is from an unidentified developer.``` you must update your system settings to allow non-AppStore applications to run:
