@@ -27,7 +27,7 @@
 
 ## Important Folders
 
-[Documentation](https://github.com/EECS2311-Team8/SoftwareDevelopmentProject/tree/master/Documentation): Contains all documents (e.g. user manual)
+[Documentation](https://github.com/erick576/VennFX/tree/master/Documentation): Contains all documents (e.g. user manual)
 
 [VennFX](https://github.com/erick576/VennFX/tree/master/VennFX): Contains the application source code
 
